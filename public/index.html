@@ -5,13 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PPLGTWO - Website Kelas</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
+    <link
+      rel="shortcut icon"
+      href="assets/images/favicon.jpg?v=2"
+      type="image/png"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
     <script>
       tailwind.config = {
         theme: {
@@ -338,7 +344,7 @@
           grid-column: span 1;
           grid-row: span 1;
         }
-        
+
         .gallery-grid {
           grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
           gap: 1rem;
@@ -363,33 +369,6 @@
     </style>
   </head>
   <body class="text-slate-100 overflow-x-hidden">
-    <!-- Admin Access Button -->
-    <div
-      class="admin-btn"
-      onclick="window.open('/admin', '_blank')"
-      title="Admin Dashboard"
-    >
-      <svg
-        class="w-6 h-6 text-white"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-        ></path>
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-        ></path>
-      </svg>
-    </div>
-
     <!-- Navigation -->
     <header
       class="fixed top-0 left-0 w-full z-50 navbar-blur transition-all duration-300"
@@ -523,7 +502,7 @@
         <div class="absolute inset-0 bg-gradient-hero"></div>
 
         <div class="container mx-auto px-6 text-center relative z-10">
-          <div class="animate-slide-up">
+          <div data-aos="fade-up">
             <div class="mb-8">
               <span
                 class="inline-flex items-center px-4 py-2 bg-primary/20 border border-primary/30 rounded-full text-sm font-medium text-primary mb-6"
@@ -664,10 +643,7 @@
           </div>
 
           <!-- Loading State -->
-          <div
-            id="gallery-loading"
-            class="gallery-grid"
-          >
+          <div id="gallery-loading" class="gallery-grid" data-aos="fade-up">
             <div class="skeleton"></div>
             <div class="skeleton"></div>
             <div class="skeleton"></div>
@@ -680,6 +656,7 @@
           <div
             id="gallery-content"
             class="gallery-grid hidden"
+            data-aos="fade-up"
           >
             <!-- Gallery items will be dynamically loaded here -->
           </div>
@@ -703,11 +680,10 @@
             <h2
               class="text-4xl md:text-6xl font-space font-bold mb-6 text-gradient"
             >
-              Struktur Organisasi Kelas
+              STRUKTUR KELAS
             </h2>
             <p class="text-xl text-slate-400 max-w-3xl mx-auto mb-8">
-              Tim solid yang membentuk fondasi kelas PPLGTWO dengan struktur
-              yang jelas dan terorganisir
+              Tim solid yang membentuk fondasi kelas PPLGTWO
             </p>
             <div
               class="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"
@@ -718,6 +694,7 @@
           <div
             id="structure-loading"
             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-6xl mx-auto"
+            data-aos="fade-up"
           >
             <div class="skeleton h-48"></div>
             <div class="skeleton h-48"></div>
@@ -733,6 +710,7 @@
           <div
             id="structure-content"
             class="org-chart max-w-6xl mx-auto hidden"
+            data-aos="fade-up"
           >
             <!-- Structure will be dynamically loaded here -->
           </div>
@@ -760,7 +738,7 @@
           <div class="max-w-5xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-12">
               <!-- Confession Form -->
-              <div class="animate-fade-in">
+              <div data-aos="fade-right">
                 <div
                   class="glass-effect rounded-2xl p-8 hover-glow sticky top-24"
                 >
@@ -786,7 +764,7 @@
                       class="text-2xl font-space font-bold mb-2 text-gradient"
                     >
                       Share Your Thoughts
-                                    </h3>
+                    </h3>
                     <p class="text-slate-400">Anonymously and safely</p>
                   </div>
 
@@ -871,7 +849,7 @@
               </div>
 
               <!-- Confessions List -->
-              <div class="animate-fade-in" style="animation-delay: 0.3s">
+              <div data-aos="fade-left">
                 <div class="flex items-center justify-between mb-8">
                   <h3 class="text-2xl font-space font-bold">
                     Recent Confessions
@@ -990,6 +968,30 @@
               >
                 <span class="text-primary text-sm font-bold">P2</span>
               </div>
+              <a
+                href="https://www.instagram.com/xi.pplgtwoarea_/"
+                target="_blank"
+                class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center transition-colors duration-300 hover:bg-secondary/40"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="text-secondary"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path
+                    d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                  ></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
             </div>
           </div>
         </div>
@@ -997,16 +999,11 @@
         <div class="border-t border-slate-700 pt-8">
           <div class="flex flex-col md:flex-row justify-between items-center">
             <div class="text-slate-500 text-sm mb-4 md:mb-0">
-              <p>
-                &copy; 2025 PPLGTWO. Made with ❤️ and lots of ☕ by our amazing
-                class.
-              </p>
+              <p>&copy; 2025 PPLGTWO. Made with 😎</p>
             </div>
             <div class="flex items-center space-x-4">
               <span class="text-slate-500 text-xs">Powered by</span>
-              <span class="text-primary text-xs font-semibold"
-                >Class Collaboration</span
-              >
+              <span class="text-primary text-xs font-semibold">xJAWW</span>
             </div>
           </div>
         </div>
@@ -1014,28 +1011,45 @@
     </footer>
 
     <!-- Loading Modal -->
-    <div id="loading-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center">
+    <div
+      id="loading-modal"
+      class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center"
+    >
       <div class="glass-effect rounded-2xl p-8 text-center">
-        <div class="animate-spin w-12 h-12 border-2 border-primary/30 border-t-primary rounded-full mx-auto mb-4"></div>
+        <div
+          class="animate-spin w-12 h-12 border-2 border-primary/30 border-t-primary rounded-full mx-auto mb-4"
+        ></div>
         <p class="text-slate-300 font-medium">Loading...</p>
       </div>
     </div>
 
     <!-- Notification Container -->
-    <div id="notification-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
+    <div
+      id="notification-container"
+      class="fixed top-4 right-4 z-50 space-y-2"
+    ></div>
 
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
+      // Initialize AOS
+      AOS.init({
+        duration: 800, // Animation duration in milliseconds
+        once: true, // Whether animation should happen only once - while scrolling down
+        offset: 100, // Offset (in px) from the original trigger point
+      });
+
       // API Helper Functions dengan Improved Error Handling
       const API = {
         async checkHealth() {
           try {
-            const response = await fetch('/api/health', {
-              method: 'GET',
-              headers: { 'Cache-Control': 'no-cache' }
+            const response = await fetch("/api/health", {
+              method: "GET",
+              headers: { "Cache-Control": "no-cache" },
             });
             return response.ok;
           } catch (error) {
-            console.warn('Health check failed:', error);
+            console.warn("Health check failed:", error);
             return false;
           }
         },
@@ -1044,74 +1058,77 @@
           try {
             const response = await fetch(`/api${endpoint}`, {
               headers: {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'no-cache',
-                ...options.headers
+                "Content-Type": "application/json",
+                "Cache-Control": "no-cache",
+                ...options.headers,
               },
-              ...options
+              ...options,
             });
-            
+
             if (!response.ok) {
               const errorData = await response.json().catch(() => ({}));
-              throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`);
+              throw new Error(
+                errorData.error ||
+                  `HTTP ${response.status}: ${response.statusText}`
+              );
             }
-            
+
             return await response.json();
           } catch (error) {
-            console.error('API Request failed:', error);
+            console.error("API Request failed:", error);
             throw error;
           }
         },
 
         // Gallery API
         async getGallery() {
-          return this.request('/gallery');
+          return this.request("/gallery");
         },
 
         // Structure API
         async getStructure() {
-          return this.request('/structure');
+          return this.request("/structure");
         },
 
         // Confessions API
         async getConfessions() {
-          return this.request('/confessions');
+          return this.request("/confessions");
         },
 
         async postConfession(message) {
-          return this.request('/confessions', {
-            method: 'POST',
-            body: JSON.stringify({ message })
+          return this.request("/confessions", {
+            method: "POST",
+            body: JSON.stringify({ message }),
           });
         },
 
         // Stats API
         async getStats() {
-          return this.request('/stats');
-        }
+          return this.request("/stats");
+        },
       };
 
       // Notification System
-      function showNotification(message, type = 'info', duration = 5000) {
-        const container = document.getElementById('notification-container');
-        const notification = document.createElement('div');
-        
+      function showNotification(message, type = "info", duration = 5000) {
+        const container = document.getElementById("notification-container");
+        const notification = document.createElement("div");
+
         const colors = {
-          success: 'bg-green-500 border-green-400',
-          error: 'bg-red-500 border-red-400',
-          warning: 'bg-yellow-500 border-yellow-400',
-          info: 'bg-blue-500 border-blue-400'
+          success: "bg-green-500 border-green-400",
+          error: "bg-red-500 border-red-400",
+          warning: "bg-yellow-500 border-yellow-400",
+          info: "bg-blue-500 border-blue-400",
         };
-        
+
         const icons = {
-          success: '✅',
-          error: '❌',
-          warning: '⚠️',
-          info: 'ℹ️'
+          success: "✅",
+          error: "❌",
+          warning: "⚠️",
+          info: "ℹ️",
         };
-        
+
         notification.className = `notification px-6 py-4 rounded-xl text-white font-medium shadow-2xl max-w-sm border-l-4 ${colors[type]} transform transition-all duration-300 translate-x-full`;
-        
+
         notification.innerHTML = `
           <div class="flex items-start space-x-3">
             <div class="flex-shrink-0 text-lg">
@@ -1127,18 +1144,18 @@
             </button>
           </div>
         `;
-        
+
         container.appendChild(notification);
-        
+
         // Animate in
         setTimeout(() => {
-          notification.classList.remove('translate-x-full');
+          notification.classList.remove("translate-x-full");
         }, 100);
-        
+
         // Auto remove
         setTimeout(() => {
           if (notification.parentNode) {
-            notification.classList.add('translate-x-full');
+            notification.classList.add("translate-x-full");
             setTimeout(() => {
               if (notification.parentNode) {
                 notification.remove();
@@ -1150,43 +1167,44 @@
 
       // Loading Modal
       function showLoading() {
-        document.getElementById('loading-modal').classList.remove('hidden');
+        document.getElementById("loading-modal").classList.remove("hidden");
       }
 
       function hideLoading() {
-        document.getElementById('loading-modal').classList.add('hidden');
+        document.getElementById("loading-modal").classList.add("hidden");
       }
 
       // Character counter untuk confession textarea
-      const confessMessage = document.getElementById('confess-message');
-      const charCount = document.getElementById('char-count');
+      const confessMessage = document.getElementById("confess-message");
+      const charCount = document.getElementById("char-count");
 
       if (confessMessage && charCount) {
-        confessMessage.addEventListener('input', function () {
+        confessMessage.addEventListener("input", function () {
           const count = this.value.length;
           charCount.textContent = `${count}/500`;
-          charCount.className = count > 450 ? 'text-xs text-red-400' : 'text-xs text-slate-500';
+          charCount.className =
+            count > 450 ? "text-xs text-red-400" : "text-xs text-slate-500";
         });
       }
 
       // Load Gallery dengan API
       async function loadGallery() {
-        const galleryLoading = document.getElementById('gallery-loading');
-        const galleryContent = document.getElementById('gallery-content');
-        const galleryControls = document.getElementById('gallery-controls');
+        const galleryLoading = document.getElementById("gallery-loading");
+        const galleryContent = document.getElementById("gallery-content");
+        const galleryControls = document.getElementById("gallery-controls");
 
         try {
           // Show loading
-          galleryLoading.style.display = 'grid';
-          galleryContent.style.display = 'none';
-          galleryControls.style.display = 'none';
+          galleryLoading.style.display = "grid";
+          galleryContent.style.display = "none";
+          galleryControls.style.display = "none";
 
           const gallery = await API.getGallery();
-          
+
           // Hide loading
-          galleryLoading.style.display = 'none';
-          galleryContent.style.display = 'grid';
-          galleryContent.innerHTML = '';
+          galleryLoading.style.display = "none";
+          galleryContent.style.display = "grid";
+          galleryContent.innerHTML = "";
 
           if (gallery.length === 0) {
             galleryContent.innerHTML = `
@@ -1199,12 +1217,12 @@
                 </div>
               </div>
             `;
-            document.getElementById('stat-gallery').textContent = '0';
+            document.getElementById("stat-gallery").textContent = "0";
             return;
           }
 
           // Update stats
-          document.getElementById('stat-gallery').textContent = gallery.length;
+          document.getElementById("stat-gallery").textContent = gallery.length;
 
           // Sort gallery: featured first, then by upload date
           const sortedGallery = [...gallery].sort((a, b) => {
@@ -1215,37 +1233,46 @@
 
           // Render gallery items
           sortedGallery.forEach((photo, index) => {
-            const galleryItem = document.createElement('div');
-            galleryItem.className = `gallery-item ${photo.featured ? 'featured' : ''} animate-fade-in`;
+            const galleryItem = document.createElement("div");
+            galleryItem.className = `gallery-item ${
+              photo.featured ? "featured" : ""
+            } animate-fade-in`;
             galleryItem.style.animationDelay = `${index * 0.1}s`;
-            
+
             galleryItem.innerHTML = `
               <img src="/assets/images/gallery/${photo.filename}" 
-                   alt="${photo.title || 'Gallery Image'}" 
+                   alt="${photo.title || "Gallery Image"}" 
                    loading="lazy"
                    onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjNjM2NmYxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5HYWxsZXJ5IEltYWdlPC90ZXh0Pjwvc3ZnPg=='">
               
               <div class="gallery-overlay">
                 <div class="text-white">
-                  ${photo.featured ? '<span class="inline-block px-3 py-1 bg-yellow-500/80 text-yellow-900 rounded-full text-sm mb-3 font-semibold">Featured</span><br>' : ''}
-                  <h3 class="text-xl font-bold mb-2">${photo.title || 'Untitled'}</h3>
-                  <p class="text-gray-200 text-sm">${photo.description || 'No description'}</p>
+                  ${
+                    photo.featured
+                      ? '<span class="inline-block px-3 py-1 bg-yellow-500/80 text-yellow-900 rounded-full text-sm mb-3 font-semibold">Featured</span><br>'
+                      : ""
+                  }
+                  <h3 class="text-xl font-bold mb-2">${
+                    photo.title || "Untitled"
+                  }</h3>
+                  <p class="text-gray-200 text-sm">${
+                    photo.description || "No description"
+                  }</p>
                 </div>
               </div>
             `;
-            
+
             galleryContent.appendChild(galleryItem);
           });
 
           // Show "Load More" if there are many photos (optional feature)
           if (gallery.length > 12) {
-            galleryControls.style.display = 'block';
+            galleryControls.style.display = "block";
           }
-
         } catch (error) {
-          console.error('Error loading gallery:', error);
-          galleryLoading.style.display = 'none';
-          galleryContent.style.display = 'grid';
+          console.error("Error loading gallery:", error);
+          galleryLoading.style.display = "none";
+          galleryContent.style.display = "grid";
           galleryContent.innerHTML = `
             <div class="gallery-item" style="grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; min-height: 400px;">
               <div class="text-center">
@@ -1263,20 +1290,20 @@
 
       // Load Structure dengan API
       async function loadStructure() {
-        const structureLoading = document.getElementById('structure-loading');
-        const structureContent = document.getElementById('structure-content');
+        const structureLoading = document.getElementById("structure-loading");
+        const structureContent = document.getElementById("structure-content");
 
         try {
           // Show loading
-          structureLoading.style.display = 'grid';
-          structureContent.style.display = 'none';
+          structureLoading.style.display = "grid";
+          structureContent.style.display = "none";
 
           const structure = await API.getStructure();
-          
+
           // Hide loading
-          structureLoading.style.display = 'none';
-          structureContent.style.display = 'flex';
-          structureContent.innerHTML = '';
+          structureLoading.style.display = "none";
+          structureContent.style.display = "flex";
+          structureContent.innerHTML = "";
 
           if (structure.length === 0) {
             structureContent.innerHTML = `
@@ -1291,54 +1318,65 @@
 
           // Group by levels
           const levels = {
-            leader: structure.filter(m => 
-              m.level === 'leader' || 
-              m.position === 'Wali Kelas'
+            leader: structure.filter(
+              (m) => m.level === "leader" || m.position === "Wali Kelas"
             ),
-            executive: structure.filter(m => 
-              m.level === 'executive' || 
-              ['Ketua Kelas', 'Wakil Ketua'].includes(m.position)
+            executive: structure.filter(
+              (m) =>
+                m.level === "executive" ||
+                ["Ketua Kelas", "Wakil Ketua"].includes(m.position)
             ),
-            staff: structure.filter(m => 
-              m.level === 'staff' || 
-              m.position.includes('Sekretaris') || 
-              m.position.includes('Bendahara')
+            staff: structure.filter(
+              (m) =>
+                m.level === "staff" ||
+                m.position.includes("Sekretaris") ||
+                m.position.includes("Bendahara")
             ),
-            division: structure.filter(m => 
-              m.level === 'division' || 
-              ['Keamanan', 'Rohani', 'Kebersihan'].some(d => m.position.includes(d))
-            )
+            division: structure.filter(
+              (m) =>
+                m.level === "division" ||
+                ["Keamanan", "Rohani", "Kebersihan"].some((d) =>
+                  m.position.includes(d)
+                )
+            ),
           };
 
           // Render each level
-          ['leader', 'executive', 'staff', 'division'].forEach((levelName, levelIndex) => {
-            if (levels[levelName].length > 0) {
-              const levelDiv = document.createElement('div');
-              levelDiv.className = 'org-level';
+          ["leader", "executive", "staff", "division"].forEach(
+            (levelName, levelIndex) => {
+              if (levels[levelName].length > 0) {
+                const levelDiv = document.createElement("div");
+                levelDiv.className = "org-level";
 
-              levels[levelName].forEach((member, index) => {
-                const card = document.createElement('div');
-                card.className = `org-card ${levelName} animate-fade-in`;
-                card.style.animationDelay = `${levelIndex * 0.2 + index * 0.1}s`;
-                card.innerHTML = `
+                levels[levelName].forEach((member, index) => {
+                  const card = document.createElement("div");
+                  card.className = `org-card ${levelName} animate-fade-in`;
+                  card.style.animationDelay = `${
+                    levelIndex * 0.2 + index * 0.1
+                  }s`;
+                  card.innerHTML = `
                   <div class="text-4xl mb-4">${member.icon}</div>
-                  <h3 class="text-lg font-space font-bold ${getColorClass(levelName)} mb-2">${member.position}</h3>
+                  <h3 class="text-lg font-space font-bold ${getColorClass(
+                    levelName
+                  )} mb-2">${member.position}</h3>
                   <p class="text-slate-300 font-medium mb-3">${member.name}</p>
-                  <div class="text-xs text-slate-400 ${getBgColorClass(levelName)} px-3 py-1 rounded-full">
+                  <div class="text-xs text-slate-400 ${getBgColorClass(
+                    levelName
+                  )} px-3 py-1 rounded-full">
                     ${getLevelLabel(levelName)}
                   </div>
                 `;
-                levelDiv.appendChild(card);
-              });
+                  levelDiv.appendChild(card);
+                });
 
-              structureContent.appendChild(levelDiv);
+                structureContent.appendChild(levelDiv);
+              }
             }
-          });
-
+          );
         } catch (error) {
-          console.error('Error loading structure:', error);
-          structureLoading.style.display = 'none';
-          structureContent.style.display = 'flex';
+          console.error("Error loading structure:", error);
+          structureLoading.style.display = "none";
+          structureContent.style.display = "flex";
           structureContent.innerHTML = `
             <div class="w-full text-center py-16">
               <div class="text-6xl mb-6">❌</div>
@@ -1355,51 +1393,52 @@
       // Helper functions untuk structure styling
       function getColorClass(level) {
         const colors = {
-          leader: 'text-primary',
-          executive: 'text-secondary',
-          staff: 'text-accent',
-          division: 'text-primary'
+          leader: "text-primary",
+          executive: "text-secondary",
+          staff: "text-accent",
+          division: "text-primary",
         };
-        return colors[level] || 'text-primary';
+        return colors[level] || "text-primary";
       }
 
       function getBgColorClass(level) {
         const bgColors = {
-          leader: 'bg-primary/10',
-          executive: 'bg-secondary/10',
-          staff: 'bg-accent/10',
-          division: 'bg-primary/10'
+          leader: "bg-primary/10",
+          executive: "bg-secondary/10",
+          staff: "bg-accent/10",
+          division: "bg-primary/10",
         };
-        return bgColors[level] || 'bg-primary/10';
+        return bgColors[level] || "bg-primary/10";
       }
 
       function getLevelLabel(level) {
         const labels = {
-          leader: 'Pembimbing',
-          executive: 'Leadership',
-          staff: 'Core Staff',
-          division: 'Division'
+          leader: "Pembimbing",
+          executive: "Leadership",
+          staff: "Core Staff",
+          division: "Division",
         };
-        return labels[level] || 'Staff';
+        return labels[level] || "Staff";
       }
 
       // Load Confessions dengan API dan Retry Logic
       async function loadConfessions(retryCount = 0) {
-        const confessList = document.getElementById('confess-list');
+        const confessList = document.getElementById("confess-list");
         const maxRetries = 3;
         const retryDelay = 1000;
 
         try {
           // Show loading state
           if (retryCount === 0) {
-            confessList.innerHTML = '<div id="confess-loading" class="text-center py-12"><div class="animate-spin w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full mx-auto mb-4"></div><p class="text-slate-400">Loading confessions...</p></div>';
+            confessList.innerHTML =
+              '<div id="confess-loading" class="text-center py-12"><div class="animate-spin w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full mx-auto mb-4"></div><p class="text-slate-400">Loading confessions...</p></div>';
           } else {
             confessList.innerHTML = `<div id="confess-loading" class="text-center py-12"><div class="animate-spin w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full mx-auto mb-4"></div><p class="text-slate-400">Retrying... (${retryCount}/${maxRetries})</p></div>`;
           }
 
           const confessions = await API.getConfessions();
-          
-          confessList.innerHTML = '';
+
+          confessList.innerHTML = "";
 
           if (confessions.length === 0) {
             confessList.innerHTML = `
@@ -1416,7 +1455,8 @@
           const confessionsHTML = confessions
             .slice()
             .reverse()
-            .map((confess, index) => `
+            .map(
+              (confess, index) => `
               <div class="glass-effect rounded-xl p-6 border-l-4 border-primary animate-fade-in hover-glow transition-all duration-300"
                    style="animation-delay: ${index * 0.1}s">
                 <div class="flex items-start space-x-4">
@@ -1427,26 +1467,31 @@
                   </div>
                   <div class="flex-1">
                     <p class="text-slate-200 leading-relaxed mb-3">"${confess.message
-                      .replace(/</g, '&lt;')
-                      .replace(/>/g, '&gt;')}"</p>
+                      .replace(/</g, "&lt;")
+                      .replace(/>/g, "&gt;")}"</p>
                     <div class="flex items-center justify-between">
                       <span class="text-slate-500 text-xs">Anonymous</span>
-                      <span class="text-slate-500 text-xs">${formatDate(confess.timestamp)}</span>
+                      <span class="text-slate-500 text-xs">${formatDate(
+                        confess.timestamp
+                      )}</span>
                     </div>
                   </div>
                 </div>
               </div>
-            `).join('');
+            `
+            )
+            .join("");
 
           confessList.innerHTML = confessionsHTML;
-          console.log('✅ Confessions loaded successfully');
-
+          console.log("✅ Confessions loaded successfully");
         } catch (error) {
-          console.error('Error loading confessions:', error);
-          
+          console.error("Error loading confessions:", error);
+
           // Retry logic
           if (retryCount < maxRetries) {
-            console.log(`🔄 Retrying confession load (${retryCount + 1}/${maxRetries})...`);
+            console.log(
+              `🔄 Retrying confession load (${retryCount + 1}/${maxRetries})...`
+            );
             setTimeout(() => {
               loadConfessions(retryCount + 1);
             }, retryDelay * (retryCount + 1));
@@ -1468,121 +1513,127 @@
       }
 
       // Update Stats
-            async function updateStats() {
+      async function updateStats() {
         try {
           const stats = await API.getStats();
-          document.getElementById('stat-gallery').textContent = stats.gallery || 0;
+          document.getElementById("stat-gallery").textContent =
+            stats.gallery || 0;
         } catch (error) {
-          console.error('Error loading stats:', error);
+          console.error("Error loading stats:", error);
         }
       }
 
       // Confession Form Handler
-      const confessForm = document.getElementById('confess-form');
-      const confessMessageInput = document.getElementById('confess-message');
+      const confessForm = document.getElementById("confess-form");
+      const confessMessageInput = document.getElementById("confess-message");
       const submitButton = confessForm?.querySelector('button[type="submit"]');
-      const submitText = document.getElementById('submit-text');
-      const refreshButton = document.getElementById('refresh-confessions');
+      const submitText = document.getElementById("submit-text");
+      const refreshButton = document.getElementById("refresh-confessions");
 
       if (confessForm) {
-        confessForm.addEventListener('submit', async function (e) {
+        confessForm.addEventListener("submit", async function (e) {
           e.preventDefault();
           const message = confessMessageInput.value.trim();
 
-          if (message === '') {
-            showNotification('Pesan tidak boleh kosong!', 'error');
+          if (message === "") {
+            showNotification("Pesan tidak boleh kosong!", "error");
             return;
           }
 
           if (message.length > 500) {
-            showNotification('Pesan terlalu panjang! Maksimal 500 karakter.', 'error');
+            showNotification(
+              "Pesan terlalu panjang! Maksimal 500 karakter.",
+              "error"
+            );
             return;
           }
 
           // Show loading state
           const originalText = submitText.innerHTML;
-          submitText.innerHTML = 'Mengirim...';
+          submitText.innerHTML = "Mengirim...";
           submitButton.disabled = true;
-          submitButton.classList.add('opacity-50');
+          submitButton.classList.add("opacity-50");
 
           try {
             await API.postConfession(message);
-            
-            confessMessageInput.value = '';
-            charCount.textContent = '0/500';
+
+            confessMessageInput.value = "";
+            charCount.textContent = "0/500";
             loadConfessions();
-            showNotification('Pesan berhasil dikirim! 🎉', 'success');
-            
+            showNotification("Pesan berhasil dikirim! 🎉", "success");
           } catch (error) {
-            console.error('Error:', error);
-            showNotification(error.message || 'Terjadi kesalahan saat mengirim pesan', 'error');
+            console.error("Error:", error);
+            showNotification(
+              error.message || "Terjadi kesalahan saat mengirim pesan",
+              "error"
+            );
           } finally {
             // Reset button
             submitText.innerHTML = originalText;
             submitButton.disabled = false;
-            submitButton.classList.remove('opacity-50');
+            submitButton.classList.remove("opacity-50");
           }
         });
       }
 
       // Refresh confessions
       if (refreshButton) {
-        refreshButton.addEventListener('click', loadConfessions);
+        refreshButton.addEventListener("click", loadConfessions);
       }
 
       // Utility Functions
       function formatDate(timestamp) {
-        if (!timestamp) return 'Just now';
+        if (!timestamp) return "Just now";
         try {
           const date = new Date(timestamp);
           const now = new Date();
           const diff = now - date;
 
-          if (diff < 60000) return 'Just now';
+          if (diff < 60000) return "Just now";
           if (diff < 3600000) return `${Math.floor(diff / 60000)}m ago`;
           if (diff < 86400000) return `${Math.floor(diff / 3600000)}h ago`;
           if (diff < 604800000) return `${Math.floor(diff / 86400000)}d ago`;
           return date.toLocaleDateString();
         } catch (error) {
-          return 'Just now';
+          return "Just now";
         }
       }
 
       // Mobile Menu Handler
-      const mobileMenuButton = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
 
       if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
+        mobileMenuButton.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
         });
 
-        document.addEventListener('click', (e) => {
+        document.addEventListener("click", (e) => {
           if (
             !mobileMenuButton.contains(e.target) &&
             !mobileMenu.contains(e.target)
           ) {
-            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.add("hidden");
           }
         });
 
-        document.querySelectorAll('#mobile-menu a').forEach((link) => {
-          link.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
+        document.querySelectorAll("#mobile-menu a").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
           });
         });
       }
 
       // Smooth Scrolling untuk Navigation
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener('click', function (e) {
+        anchor.addEventListener("click", function (e) {
           e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
+          const target = document.querySelector(this.getAttribute("href"));
           if (target) {
             const offsetTop = target.offsetTop - 80;
             window.scrollTo({
               top: offsetTop,
-              behavior: 'smooth',
+              behavior: "smooth",
             });
           }
         });
@@ -1590,20 +1641,20 @@
 
       // Active Navigation Highlighting
       function updateActiveNavigation() {
-        let current = '';
-        const sections = document.querySelectorAll('section[id]');
+        let current = "";
+        const sections = document.querySelectorAll("section[id]");
 
         sections.forEach((section) => {
           const sectionTop = section.offsetTop - 100;
           if (pageYOffset >= sectionTop) {
-            current = section.getAttribute('id');
+            current = section.getAttribute("id");
           }
         });
 
-        document.querySelectorAll('.nav-link').forEach((link) => {
-          link.classList.remove('text-primary');
-          if (link.getAttribute('href') === `#${current}`) {
-            link.classList.add('text-primary');
+        document.querySelectorAll(".nav-link").forEach((link) => {
+          link.classList.remove("text-primary");
+          if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("text-primary");
           }
         });
       }
@@ -1624,78 +1675,78 @@
       // Scroll event handler dengan debounce
       const debouncedScrollHandler = debounce(() => {
         updateActiveNavigation();
-        
+
         // Update navbar background based on scroll position
-        const navbar = document.querySelector('header');
+        const navbar = document.querySelector("header");
         if (window.scrollY > 50) {
-          navbar.classList.add('backdrop-blur-xl');
-          navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+          navbar.classList.add("backdrop-blur-xl");
+          navbar.style.background = "rgba(15, 23, 42, 0.95)";
         } else {
-          navbar.classList.remove('backdrop-blur-xl');
-          navbar.style.background = 'rgba(15, 23, 42, 0.9)';
+          navbar.classList.remove("backdrop-blur-xl");
+          navbar.style.background = "rgba(15, 23, 42, 0.9)";
         }
       }, 10);
 
-      window.addEventListener('scroll', debouncedScrollHandler);
+      window.addEventListener("scroll", debouncedScrollHandler);
 
-      // Intersection Observer untuk Animations
+      // Intersection Observer untuk Animations (Fallback for AOS)
       const observeElements = document.querySelectorAll(
-        '.animate-fade-in, .animate-slide-up'
+        ".animate-fade-in, .animate-slide-up"
       );
-      
+
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              entry.target.style.opacity = '1';
-              entry.target.style.transform = 'translateY(0)';
+              entry.target.style.opacity = "1";
+              entry.target.style.transform = "translateY(0)";
               observer.unobserve(entry.target);
             }
           });
         },
         {
           threshold: 0.1,
-          rootMargin: '50px',
+          rootMargin: "50px",
         }
       );
 
       observeElements.forEach((el) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'all 0.8s ease-out';
+        el.style.opacity = "0";
+        el.style.transform = "translateY(30px)";
+        el.style.transition = "all 0.8s ease-out";
         observer.observe(el);
       });
 
       // Keyboard shortcuts
-      document.addEventListener('keydown', function (e) {
+      document.addEventListener("keydown", function (e) {
         // Alt + A untuk buka admin dashboard
-        if (e.altKey && e.key === 'a') {
+        if (e.altKey && e.key === "a") {
           e.preventDefault();
-          window.open('/admin', '_blank');
+          window.open("/admin", "_blank");
         }
 
         // Escape key untuk close notifications
-        if (e.key === 'Escape') {
-          document.querySelectorAll('.notification').forEach((n) => n.remove());
+        if (e.key === "Escape") {
+          document.querySelectorAll(".notification").forEach((n) => n.remove());
         }
 
         // Ctrl+Enter untuk submit confession form
-        if (e.key === 'Enter' && e.ctrlKey) {
-          if (e.target.id === 'confess-message') {
+        if (e.key === "Enter" && e.ctrlKey) {
+          if (e.target.id === "confess-message") {
             e.preventDefault();
-            confessForm.dispatchEvent(new Event('submit'));
+            confessForm.dispatchEvent(new Event("submit"));
           }
         }
       });
 
       // Right-click context menu untuk admin access (hidden feature)
-      document.addEventListener('contextmenu', function (e) {
+      document.addEventListener("contextmenu", function (e) {
         if (e.ctrlKey && e.shiftKey) {
           e.preventDefault();
-          const adminPrompt = prompt('Enter admin access code:');
-          if (adminPrompt === 'pplgtwo2025') {
-            window.open('/admin', '_blank');
-            showNotification('Admin dashboard opened!', 'success');
+          const adminPrompt = prompt("Enter admin access code:");
+          if (adminPrompt === "pplgtwo2025") {
+            window.open("/admin", "_blank");
+            showNotification("Admin dashboard opened!", "success");
           }
         }
       });
@@ -1718,18 +1769,23 @@
                 await loadConfessions();
                 consecutiveErrors = 0;
               } else {
-                throw new Error('Server health check failed');
+                throw new Error("Server health check failed");
               }
             } catch (error) {
               consecutiveErrors++;
-              console.warn(`Auto-refresh failed (${consecutiveErrors}/${maxConsecutiveErrors}):`, error);
-              
+              console.warn(
+                `Auto-refresh failed (${consecutiveErrors}/${maxConsecutiveErrors}):`,
+                error
+              );
+
               if (consecutiveErrors >= maxConsecutiveErrors) {
-                console.warn('Too many consecutive errors, stopping auto-refresh');
+                console.warn(
+                  "Too many consecutive errors, stopping auto-refresh"
+                );
                 stopAutoRefresh();
                 showNotification(
-                  'Auto-refresh stopped due to connection issues. Click refresh to try again.',
-                  'warning',
+                  "Auto-refresh stopped due to connection issues. Click refresh to try again.",
+                  "warning",
                   8000
                 );
               }
@@ -1747,7 +1803,7 @@
       }
 
       // Handle visibility change untuk pause/resume auto-refresh
-      document.addEventListener('visibilitychange', () => {
+      document.addEventListener("visibilitychange", () => {
         if (document.hidden) {
           stopAutoRefresh();
         } else {
@@ -1759,22 +1815,27 @@
       // Load settings dari API (optional)
       async function loadSettings() {
         try {
-          const response = await fetch('/api/settings');
+          const response = await fetch("/api/settings");
           if (response.ok) {
             const settings = await response.json();
-            
+
             if (settings.siteName) {
-              document.getElementById('site-brand').textContent = settings.siteName;
-              document.getElementById('site-title').textContent = settings.siteName;
-              document.getElementById('footer-brand').textContent = settings.siteName;
+              document.getElementById("site-brand").textContent =
+                settings.siteName;
+              document.getElementById("site-title").textContent =
+                settings.siteName;
+              document.getElementById("footer-brand").textContent =
+                settings.siteName;
             }
 
             if (settings.siteDescription) {
-              document.getElementById('site-description').innerHTML = settings.siteDescription;
+              document.getElementById("site-description").innerHTML =
+                settings.siteDescription;
             }
 
             if (settings.welcomeText) {
-              document.getElementById('welcome-text').textContent = settings.welcomeText;
+              document.getElementById("welcome-text").textContent =
+                settings.welcomeText;
             }
 
             if (settings.siteTitle) {
@@ -1782,25 +1843,27 @@
             }
           }
         } catch (error) {
-          console.warn('Failed to load settings:', error);
+          console.warn("Failed to load settings:", error);
         }
       }
 
       // Initialize Everything saat DOM loaded
-      document.addEventListener('DOMContentLoaded', async () => {
-        console.log('🚀 Initializing PPLGTWO Website...');
-        
+      document.addEventListener("DOMContentLoaded", async () => {
+        console.log("🚀 Initializing PPLGTWO Website...");
+
         // Add smooth loading animation
-        document.body.style.opacity = '0';
-        document.body.style.transition = 'opacity 0.5s ease-in-out';
+        document.body.style.opacity = "0";
+        document.body.style.transition = "opacity 0.5s ease-in-out";
 
         try {
           showLoading();
-          
+
           // Check server health first
           const serverHealthy = await API.checkHealth();
           if (!serverHealthy) {
-            console.warn('Server health check failed, continuing with degraded functionality');
+            console.warn(
+              "Server health check failed, continuing with degraded functionality"
+            );
           }
 
           // Load sections with individual error handling
@@ -1808,14 +1871,19 @@
             loadSettings(),
             loadGallery(),
             loadStructure(),
-            updateStats()
+            updateStats(),
           ]);
 
           // Check for any failures
-          const failures = results.filter(result => result.status === 'rejected');
+          const failures = results.filter(
+            (result) => result.status === "rejected"
+          );
           if (failures.length > 0) {
-            console.warn('Some sections failed to load:', failures);
-            showNotification(`${failures.length} section(s) failed to load`, 'warning');
+            console.warn("Some sections failed to load:", failures);
+            showNotification(
+              `${failures.length} section(s) failed to load`,
+              "warning"
+            );
           }
 
           // Load confessions separately with delay
@@ -1824,10 +1892,10 @@
           }, 100);
 
           hideLoading();
-          
+
           // Fade in body
           setTimeout(() => {
-            document.body.style.opacity = '1';
+            document.body.style.opacity = "1";
           }, 100);
 
           // Start auto-refresh if not hidden
@@ -1835,45 +1903,44 @@
             startAutoRefresh();
           }
 
-          console.log('✅ Website initialized successfully');
-
+          console.log("✅ Website initialized successfully");
         } catch (error) {
-          console.error('❌ Error initializing website:', error);
+          console.error("❌ Error initializing website:", error);
           hideLoading();
-          
+
           showNotification(
-            'Failed to connect to server. Please check if the backend is running.',
-            'error',
+            "Failed to connect to server. Please check if the backend is running.",
+            "error",
             10000
           );
-          
+
           // Still try to load confessions
           setTimeout(() => {
             loadConfessions();
           }, 2000);
-          
+
           // Still fade in body
           setTimeout(() => {
-            document.body.style.opacity = '1';
+            document.body.style.opacity = "1";
           }, 100);
         }
       });
 
       // Cleanup on page unload
-      window.addEventListener('beforeunload', () => {
+      window.addEventListener("beforeunload", () => {
         stopAutoRefresh();
       });
 
       // Global error handler
-      window.addEventListener('error', (event) => {
-        console.error('Global error:', event.error);
-        showNotification('An unexpected error occurred', 'error');
+      window.addEventListener("error", (event) => {
+        console.error("Global error:", event.error);
+        showNotification("An unexpected error occurred", "error");
       });
 
       // Handle unhandled promise rejections
-      window.addEventListener('unhandledrejection', (event) => {
-        console.error('Unhandled promise rejection:', event.reason);
-        showNotification('A network error occurred', 'error');
+      window.addEventListener("unhandledrejection", (event) => {
+        console.error("Unhandled promise rejection:", event.reason);
+        showNotification("A network error occurred", "error");
         event.preventDefault();
       });
 
@@ -1883,17 +1950,12 @@
         ║              PPLGTWO                 ║
         ║        Website Kelas v2.0            ║
         ║                                      ║
-        ║  🎨 Dynamic Gallery Loading          ║
-        ║  👥 Real-time Structure Updates      ║
+        ║  🎨 Dynamic Gallery Loading         ║
+        ║  👥 Real-time Structure Updates     ║
         ║  💭 Live Anonymous Confessions       ║
         ║  📊 Auto-updating Statistics         ║
         ║  🔄 Robust Error Handling            ║
-        ║  ⚡ Performance Optimized           ║
-        ║                                      ║
-        ║  Admin Access:                       ║
-        ║  - Click admin button (bottom-right) ║
-        ║  - Alt + A keyboard shortcut         ║
-        ║  - Ctrl+Shift+Right-click secret     ║
+        ║  ⚡ Performance Optimized            ║
         ║                                      ║
         ║  Made with ❤️ by PPLGTWO Class      ║
         ║  Happy exploring! 🚀                ║
@@ -1902,8 +1964,8 @@
 
       // Export functions untuk debugging (development only)
       if (
-        window.location.hostname === 'localhost' ||
-        window.location.hostname === '127.0.0.1'
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1"
       ) {
         window.PPLGTWO_DEBUG = {
           loadGallery,
@@ -1914,17 +1976,19 @@
           showNotification,
           API,
           startAutoRefresh,
-          stopAutoRefresh
+          stopAutoRefresh,
         };
         console.log(
-          '🔧 Debug mode enabled. Access PPLGTWO_DEBUG object for utilities.'
+          "🔧 Debug mode enabled. Access PPLGTWO_DEBUG object for utilities."
         );
       }
 
       // Performance monitoring
-      window.addEventListener('load', () => {
+      window.addEventListener("load", () => {
         if (window.performance && window.performance.timing) {
-          const loadTime = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
+          const loadTime =
+            window.performance.timing.loadEventEnd -
+            window.performance.timing.navigationStart;
           console.log(`⏱️ Page load time: ${loadTime}ms`);
         }
       });
@@ -1932,20 +1996,24 @@
       // Feature detection
       function checkFeatureSupport() {
         const features = {
-          fetch: typeof fetch !== 'undefined',
-          intersectionObserver: 'IntersectionObserver' in window,
-          customScrollbar: CSS.supports('backdrop-filter', 'blur(10px)'),
-          gridLayout: CSS.supports('display', 'grid')
+          fetch: typeof fetch !== "undefined",
+          intersectionObserver: "IntersectionObserver" in window,
+          customScrollbar: CSS.supports("backdrop-filter", "blur(10px)"),
+          gridLayout: CSS.supports("display", "grid"),
         };
 
-        console.log('🔍 Feature support:', features);
+        console.log("🔍 Feature support:", features);
 
         if (!features.fetch) {
-          console.warn('⚠️ Fetch API not supported. Some features may not work.');
+          console.warn(
+            "⚠️ Fetch API not supported. Some features may not work."
+          );
         }
 
         if (!features.intersectionObserver) {
-          console.warn('⚠️ IntersectionObserver not supported. Animations may be limited.');
+          console.warn(
+            "⚠️ IntersectionObserver not supported. Animations may be limited."
+          );
         }
 
         return features;
@@ -1955,8 +2023,8 @@
       checkFeatureSupport();
 
       // PWA hint
-      if ('serviceWorker' in navigator) {
-        console.log('💡 This website could be enhanced with PWA features!');
+      if ("serviceWorker" in navigator) {
+        console.log("💡 This website could be enhanced with PWA features!");
       }
     </script>
   </body>
