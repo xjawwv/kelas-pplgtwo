@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - PPLGTWO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                        accent: '#06b6d4',
+                        dark: '#0f172a',
+                        darker: '#020617',
+                        darkest: '#030712',
+                        light: '#f8fafc',
+                        gray: '#64748b',
+                        'card-bg': 'rgba(255, 255, 255, 0.05)',
+                        'glass': 'rgba(255, 255, 255, 0.08)',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'space': ['Space Grotesk', 'sans-serif'],
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            background-attachment: fixed;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar {
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .content-area {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .hover-glow:hover {
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tab-button.active {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+        }
+        
+        .drag-area {
+            border: 2px dashed #6366f1;
+            background: rgba(99, 102, 241, 0.05);
+        }
+        
+        .drag-area.dragover {
+            border-color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.1);
+        }
+        
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="text-slate-100 overflow-hidden">
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+        <div class="glass-effect rounded-2xl p-8 max-w-md w-full mx-4">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-space font-bold text-gradient mb-2">Admin Login</h2>
+                <p class="text-slate-400">Enter credentials to access dashboard</p>
+            </div>
+            
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-2">Username</label>
+                    <input type="text" id="username" class="w-full bg-slate-800/50 border border-slate-600 rounded-xl p-3 text-slate-100 focus:ring-2 focus:ring-primary focus:border-primary transition-all" placeholder="Enter username" required>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-2">Password</label>
+                    <input type="password" id="password" class="w-full bg-slate-800/50 border border-slate-600 rounded-xl p-3 text-slate-100 focus:ring-2 focus:ring-primary focus:border-primary transition-all" placeholder="Enter password" required>
+                </div>
+                
+                <button type="submit" class="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/80 hover:to-secondary/80 text-white font-semibold py-3 rounded-xl transition-all duration-300 hover-glow">
+                    Login to Dashboard
+                </button>
+            </form>
+            
+            <div class="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-xl">
+                <p class="text-xs text-slate-400">
+                    <strong>Demo Credentials:</strong><br>
+                    Username: admin<br>
+                    Password: pplgtwo2025
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="hidden h-screen flex">
+        <!-- Sidebar -->
+        <div class="sidebar w-64 flex-shrink-0 p-6">
+            <div class="mb-8">
+                <h1 class="text-2xl font-space font-bold text-gradient">PPLGTWO</h1>
+                <p class="text-slate-400 text-sm">Admin Dashboard</p>
+            </div>
+            
+            <nav class="space-y-2">
+                <button class="tab-button active w-full text-left px-4 py-3 rounded-xl transition-all duration-300 flex items-center space-x-3" data-tab="overview">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    <span>Overview</span>
+                </button>
+                
+                <button class="tab-button w-full text-left px-4 py-3 rounded-xl transition-all duration-300 hover:bg-white/10 flex items-center space-x-3" data-tab="gallery">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    <span>Gallery Management</span>
+                </button>
+                
+                <button class="tab-button w-full text-left px-4 py-3 rounded-xl transition-all duration-300 hover:bg-white/10 flex items-center space-x-3" data-tab="structure">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                    <span>Class Structure</span>
+                </button>
+                
+                <button class="tab-button w-full text-left px-4 py-3 rounded-xl transition-all duration-300 hover:bg-white/10 flex items-center space-x-3" data-tab="confessions">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                    </svg>
+                    <span>Confessions</span>
+                </button>
+                
+                <button class="tab-button w-full text-left px-4 py-3 rounded-xl transition-all duration-300 hover:bg-white/10 flex items-center space-x-3" data-tab="settings">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span>Settings</span>
+                </button>
+            </nav>
+            
+            <div class="mt-auto pt-8">
+                <button id="logout-btn" class="w-full px-4 py-3 bg-danger/20 border border-danger/30 text-danger rounded-xl transition-all duration-300 hover:bg-danger/30 flex items-center justify-center space-x-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                    </svg>
+                    <span>Logout</span>
+                </button>
+                
+                <div class="mt-4 p-3 glass-effect rounded-xl text-center">
+                    <p class="text-xs text-slate-400">Logged in as</p>
+                    <p class="text-sm font-semibold text-primary" id="current-user">admin</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="flex-1 content-area overflow-y-auto">
+            <!-- Header -->
+            <div class="p-6 border-b border-slate-700">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 id="page-title" class="text-2xl font-space font-bold">Overview</h2>
+                        <p class="text-slate-400">Manage your PPLGTWO website</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="index.html" target="_blank" class="px-4 py-2 glass-effect rounded-lg hover:bg-white/10 transition-all duration-300 flex items-center space-x-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                            <span>View Site</span>
+                        </a>
+                        <div class="text-right">
+                            <p class="text-sm text-slate-400">Last updated</p>
+                            <p class="text-xs text-slate-500" id="last-updated">Just now</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content Tabs -->
+            <div class="p-6">
+                <!-- Overview Tab -->
+                <div id="overview-content" class="tab-content">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="glass-effect rounded-2xl p-6 hover-glow">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="text-3xl">📸</div>
+                                <div class="text-right">
+                                    <p class="text-2xl font-bold text-primary" id="gallery-count">0</p>
+                                    <p class="text-sm text-slate-400">Gallery Photos</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-effect rounded-2xl p-6 hover-glow">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="text-3xl">👥</div>
+                                <div class="text-right">
+                                    <p class="text-2xl font-bold text-secondary" id="structure-count">0</p>
+                                    <p class="text-sm text-slate-400">Class Members</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-effect rounded-2xl p-6 hover-glow">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="text-3xl">💭</div>
+                                <div class="text-right">
+                                    <p class="text-2xl font-bold text-accent" id="confessions-count">0</p>
+                                    <p class="text-sm text-slate-400">Confessions</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-effect rounded-2xl p-6 hover-glow">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="text-3xl">📊</div>
+                                <div class="text-right">
+                                    <p class="text-2xl font-bold text-success">100%</p>
+                                    <p class="text-sm text-slate-400">System Status</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="glass-effect rounded-2xl p-6">
+                            <h3 class="text-xl font-semibold mb-4">Quick Actions</h3>
+                            <div class="space-y-3">
+                                <button class="quick-action w-full text-left p-4 rounded-xl bg-primary/10 border border-primary/20 hover:bg-primary/20 transition-all" data-tab="gallery">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="text-2xl">📷</div>
+                                        <div>
+                                            <p class="font-medium">Add New Photos</p>
+                                            <p class="text-sm text-slate-400">Upload photos to gallery</p>
+                                        </div>
+                                    </div>
+                                </button>
+                                
+                                <button class="quick-action w-full text-left p-4 rounded-xl bg-secondary/10 border border-secondary/20 hover:bg-secondary/20 transition-all" data-tab="structure">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="text-2xl">👤</div>
+                                        <div>
+                                            <p class="font-medium">Edit Class Structure</p>
+                                            <p class="text-sm text-slate-400">Update member information</p>
+                                        </div>
+                                    </div>
+                                </button>
+                                
+                                <button class="quick-action w-full text-left p-4 rounded-xl bg-accent/10 border border-accent/20 hover:bg-accent/20 transition-all" data-tab="confessions">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="text-2xl">🗨️</div>
+                                        <div>
+                                            <p class="font-medium">Manage Confessions</p>
+                                            <p class="text-sm text-slate-400">Review and moderate messages</p>
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-effect rounded-2xl p-6">
+                            <h3 class="text-xl font-semibold mb-4">Recent Activity</h3>
+                            <div id="recent-activity" class="space-y-3">
+                                <div class="flex items-start space-x-3 p-3 bg-slate-800/30 rounded-lg">
+                                    <div class="text-green-400 text-sm">●</div>
+                                    <div class="text-sm">
+                                        <p class="text-slate-300">Dashboard initialized</p>
+                                        <p class="text-slate-500 text-xs">Just now</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Management Tab -->
+                <div id="gallery-content" class="tab-content hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Upload Area -->
+                        <div class="lg:col-span-1">
+                            <div class="glass-effect rounded-2xl p-6 mb-6">
+                                <h3 class="text-xl font-semibold mb-4">Upload New Photos</h3>
+                                
+                                <div class="drag-area rounded-xl p-8 text-center mb-4" id="drop-zone">
+                                    <div class="text-4xl mb-4">📁</div>
+                                    <p class="text-slate-300 mb-2">Drag & Drop photos here</p>
+                                    <p class="text-sm text-slate-400 mb-4">or</p>
+                                    <button class="px-4 py-2 bg-primary/20 border border-primary/30 text-primary rounded-lg hover:bg-primary/30 transition-all">
+                                        Browse Files
+                                    </button>
+                                    <input type="file" id="file-input" accept="image/*" multiple class="hidden">
+                                </div>
+                                
+                                <div class="text-xs text-slate-400 space-y-1">
+                                    <p>• Supported formats: JPG, PNG, GIF</p>
+                                    <p>• Maximum file size: 5MB per image</p>
+                                    <p>• Multiple upload supported</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Upload Preview -->
+                            <div id="upload-preview" class="glass-effect rounded-2xl p-6 hidden">
+                                <h4 class="font-semibold mb-3">Upload Preview</h4>
+                                <div id="preview-list" class="space-y-2 max-h-64 overflow-y-auto"></div>
+                                <button id="upload-btn" class="w-full mt-4 px-4 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-lg hover:opacity-90 transition-all">
+                                    Upload Photos
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Gallery Management -->
+                        <div class="lg:col-span-2">
+                            <div class="glass-effect rounded-2xl p-6">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h3 class="text-xl font-semibold">Current Gallery</h3>
+                                    <button id="refresh-gallery" class="px-4 py-2 glass-effect rounded-lg hover:bg-white/10 transition-all">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                
+                                <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 max-h-96 overflow-y-auto">
+                                    <!-- Gallery items will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Class Structure Tab -->
+                <div id="structure-content" class="tab-content hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Add/Edit Member Form -->
+                        <div class="glass-effect rounded-2xl p-6">
+                            <h3 class="text-xl font-semibold mb-6">Add/Edit Class Member</h3>
+                            
+                            <form id="member-form" class="space-y-4">
+                                <input type="hidden" id="member-id">
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-300 mb-2">Position</label>
+                                    <select id="member-position" class="w-full bg-slate-800/50 border border-slate-600 rounded-xl p-3 text-slate-100 focus:ring-2 focus:ring-primary focus:border-primary">
+                                        <option value="">Select Position</option>
+                                        <option value="Wali Kelas">Wali Kelas</option>
+                                        <option value="Ketua Kelas">Ketua Kelas</option>
+                                        <option value="Wakil Ketua">Wakil Ketua</option>
+                                        <option value="Sekretaris 1">Sekretaris 1</option>
+                                        <option value="Sekretaris 2">Sekretaris 2</option>
+                                        <option value="Bendahara 1">Bendahara 1</option>
+                                        <option value="Bendahara 2">Bendahara 2</option>
+                                        <option value="Keamanan 1">Keamanan 1</option>
+                                        <option value="Keamanan 2">Keamanan 2</option>
+                                        <option value="Rohani 1">Rohani 1</option>
+                                        <option value="Rohani 2">Rohani 2</option>
+                                        <option value="Kebersihan 1">Kebersihan 1</option>
+                                        <option value="Kebersihan 2">Kebersihan 2</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-300 mb-2">Name</label>
+                                    <input type="text" id="member-name" class="w-full bg-slate-800/50 border border-slate-600 rounded-xl p-3 text-slate-100 focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Enter member name">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-300 mb-2">Icon (Emoji)</label>
+                                    <input type="text" id="member-icon" class="w-full bg-slate-800/50 border border-slate-600 rounded-xl p-3 text-slate-100 focus:ring-2 focus:ring-primary focus:border-primary" placeholder="👤" maxlength="2">
+                                </div>
+                                
+                                <div class="flex space-x-3">
+                                    <button type="submit" class="flex-1 bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-xl hover:opacity-90 transition-all">
+                                        <span id="member-submit-text">Add Member</span>
+                                    </button>
+                                    <button type="button" id="cancel-edit" class="px-6 py-3 glass-effect rounded-xl hover:bg-white/10 transition-all hidden">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Current Structure -->
+                        <div class="glass-effect rounded-2xl p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-xl font-semibold">Current Class Structure</h3>
+                                <button id="refresh-structure" class="px-4 py-2 glass-effect rounded-lg hover:bg-white/10 transition-all">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <div id="structure-list" class="space-y-3 max-h-96 overflow-y-auto">
+                                <!-- Structure items will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Confessions Management Tab -->
+                <div id="confessions-content" class="tab-content hidden">
+                    <div class="glass-effect rounded-2xl p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-xl font-semibold">Confessions Management</h3>
+                                            <div class="flex items-center space-x-3">
+                                <button id="refresh-confessions" class="px-4 py-2 glass-effect rounded-lg hover:bg-white/10 transition-all">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                    </svg>
+                                </button>
+                                <button id="clear-all-confessions" class="px-4 py-2 bg-danger/20 border border-danger/30 text-danger rounded-lg hover:bg-danger/30 transition-all">
+                                    Clear All
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div id="confessions-list" class="space-y-4 max-h-96 overflow-y-auto">
+                            <!-- Confessions will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Settings Tab -->
+                <div id="settings-content" class="tab-content hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Website Settings -->
+                        <div class="glass-effect rounded-2xl p-6">
+                            <h3 class="text-xl font-semibold mb-6">Website Settings</h3>
+                            
+                            <form id="website-settings-form" class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-300 mb-2">Website Title</label>
+                                    <input type="text" id="site-title" value="PPLGTWO - Website Kelas" class="w-full bg-slate-800/50 border border-slate-600 rounded-xl p-3 text-slate-100 focus:ring-2 focus:ring-primary focus:border-primary">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-300 mb-2">Website Description</label>
+                                    <textarea id="site-description" rows="3" class="w-full bg-slate-800/50 border border-slate-600 rounded-xl p-3 text-slate-100 focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Menciptakan masa depan digital dengan kreativitas, inovasi, dan kolaborasi yang tak terbatas"></textarea>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-300 mb-2">Class Name</label>
+                                    <input type="text" id="class-name" value="PPLGTWO" class="w-full bg-slate-800/50 border border-slate-600 rounded-xl p-3 text-slate-100 focus:ring-2 focus:ring-primary focus:border-primary">
+                                </div>
+                                
+                                <button type="submit" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-xl hover:opacity-90 transition-all">
+                                    Save Website Settings
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <!-- Admin Settings -->
+                        <div class="glass-effect rounded-2xl p-6">
+                            <h3 class="text-xl font-semibold mb-6">Admin Settings</h3>
+                            
+                            <form id="admin-settings-form" class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-300 mb-2">Change Password</label>
+                                    <input type="password" id="current-password" class="w-full bg-slate-800/50 border border-slate-600 rounded-xl p-3 text-slate-100 focus:ring-2 focus:ring-primary focus:border-primary mb-3" placeholder="Current password">
+                                    <input type="password" id="new-password" class="w-full bg-slate-800/50 border border-slate-600 rounded-xl p-3 text-slate-100 focus:ring-2 focus:ring-primary focus:border-primary mb-3" placeholder="New password">
+                                    <input type="password" id="confirm-password" class="w-full bg-slate-800/50 border border-slate-600 rounded-xl p-3 text-slate-100 focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Confirm new password">
+                                </div>
+                                
+                                <button type="submit" class="w-full bg-gradient-to-r from-warning to-danger text-white py-3 rounded-xl hover:opacity-90 transition-all">
+                                    Update Password
+                                </button>
+                            </form>
+                            
+                            <div class="mt-8 p-4 bg-danger/10 border border-danger/20 rounded-xl">
+                                <h4 class="font-semibold text-danger mb-2">Danger Zone</h4>
+                                <p class="text-sm text-slate-400 mb-3">These actions cannot be undone</p>
+                                <button id="backup-data" class="w-full mb-2 px-4 py-2 bg-warning/20 border border-warning/30 text-warning rounded-lg hover:bg-warning/30 transition-all">
+                                    Backup All Data
+                                </button>
+                                <button id="reset-system" class="w-full px-4 py-2 bg-danger/20 border border-danger/30 text-danger rounded-lg hover:bg-danger/30 transition-all">
+                                    Reset All Data
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notification-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
+
+    <script>
+        // Authentication and Session Management
+        const AUTH = {
+            isAuthenticated: false,
+            username: null,
+            
+            login(username, password) {
+                // Demo credentials
+                if (username === 'admin' && password === 'pplgtwo2025') {
+                    this.isAuthenticated = true;
+                    this.username = username;
+                    localStorage.setItem('adminAuth', JSON.stringify({
+                        username: username,
+                        timestamp: Date.now()
+                    }));
+                    return true;
+                }
+                return false;
+            },
+            
+            logout() {
+                this.isAuthenticated = false;
+                this.username = null;
+                localStorage.removeItem('adminAuth');
+                location.reload();
+            },
+            
+            checkAuth() {
+                const stored = localStorage.getItem('adminAuth');
+                if (stored) {
+                    const data = JSON.parse(stored);
+                    // Check if session is less than 24 hours old
+                    if (Date.now() - data.timestamp < 24 * 60 * 60 * 1000) {
+                        this.isAuthenticated = true;
+                        this.username = data.username;
+                        return true;
+                    } else {
+                        localStorage.removeItem('adminAuth');
+                    }
+                }
+                return false;
+            }
+        };
+
+        // Data Management
+        const DATA = {
+            gallery: JSON.parse(localStorage.getItem('galleryData')) || [
+                { id: 1, filename: 'foto1.jpg', title: 'Moment Kelas', description: 'Kebersamaan yang tak terlupakan' },
+                { id: 2, filename: 'foto2.jpg', title: 'Aktivitas Belajar', description: 'Semangat pembelajaran tinggi' }
+            ],
+            
+            structure: JSON.parse(localStorage.getItem('structureData')) || [
+                { id: 1, position: 'Wali Kelas', name: 'Bapak/Ibu Guru', icon: '👨‍🏫' },
+                { id: 2, position: 'Ketua Kelas', name: 'Nama Ketua', icon: '👑' },
+                { id: 3, position: 'Wakil Ketua', name: 'Nama Wakil Ketua', icon: '🤝' },
+                { id: 4, position: 'Sekretaris 1', name: 'Nama Sekretaris 1', icon: '📝' },
+                { id: 5, position: 'Sekretaris 2', name: 'Nama Sekretaris 2', icon: '📋' },
+                { id: 6, position: 'Bendahara 1', name: 'Nama Bendahara 1', icon: '💰' },
+                { id: 7, position: 'Bendahara 2', name: 'Nama Bendahara 2', icon: '💳' },
+                { id: 8, position: 'Keamanan 1', name: 'Nama Keamanan 1', icon: '🛡️' },
+                { id: 9, position: 'Keamanan 2', name: 'Nama Keamanan 2', icon: '🔒' },
+                { id: 10, position: 'Rohani 1', name: 'Nama Rohani 1', icon: '🕊️' },
+                { id: 11, position: 'Rohani 2', name: 'Nama Rohani 2', icon: '🤲' },
+                { id: 12, position: 'Kebersihan 1', name: 'Nama Kebersihan 1', icon: '🧹' },
+                { id: 13, position: 'Kebersihan 2', name: 'Nama Kebersihan 2', icon: '✨' }
+            ],
+            
+            confessions: JSON.parse(localStorage.getItem('confessionsData')) || [],
+            
+            save() {
+                localStorage.setItem('galleryData', JSON.stringify(this.gallery));
+                localStorage.setItem('structureData', JSON.stringify(this.structure));
+                localStorage.setItem('confessionsData', JSON.stringify(this.confessions));
+            }
+        };
+
+        // Notification System
+        function showNotification(message, type = 'info', duration = 3000) {
+            const container = document.getElementById('notification-container');
+            const notification = document.createElement('div');
+            
+            const colors = {
+                success: 'bg-green-500',
+                error: 'bg-red-500',
+                warning: 'bg-yellow-500',
+                info: 'bg-blue-500'
+            };
+            
+            notification.className = `px-6 py-3 rounded-lg text-white font-medium ${colors[type]} animate-slide-up shadow-lg`;
+            notification.textContent = message;
+            
+            container.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, duration);
+        }
+
+        // Tab Management
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(`${tabName}-content`).classList.remove('hidden');
+            
+            // Add active class to selected tab button
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            
+            // Update page title
+            const titles = {
+                overview: 'Overview',
+                gallery: 'Gallery Management',
+                structure: 'Class Structure',
+                confessions: 'Confessions',
+                settings: 'Settings'
+            };
+            document.getElementById('page-title').textContent = titles[tabName];
+            
+            // Load content for the selected tab
+            loadTabContent(tabName);
+        }
+
+        // Load content for specific tabs
+        function loadTabContent(tabName) {
+            switch (tabName) {
+                case 'overview':
+                    updateOverviewStats();
+                    break;
+                case 'gallery':
+                    loadGalleryContent();
+                    break;
+                case 'structure':
+                    loadStructureContent();
+                    break;
+                case 'confessions':
+                    loadConfessionsContent();
+                    break;
+            }
+        }
+
+        // Overview tab functions
+        function updateOverviewStats() {
+            document.getElementById('gallery-count').textContent = DATA.gallery.length;
+            document.getElementById('structure-count').textContent = DATA.structure.length;
+            document.getElementById('confessions-count').textContent = DATA.confessions.length;
+        }
+
+        // Gallery Management Functions
+        function loadGalleryContent() {
+            const galleryGrid = document.getElementById('gallery-grid');
+            galleryGrid.innerHTML = '';
+            
+            if (DATA.gallery.length === 0) {
+                galleryGrid.innerHTML = `
+                    <div class="col-span-full text-center py-8">
+                        <div class="text-4xl mb-4">📷</div>
+                        <p class="text-slate-400">No photos uploaded yet</p>
+                        <p class="text-slate-500 text-sm">Use the upload area to add photos</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            DATA.gallery.forEach(photo => {
+                const photoElement = document.createElement('div');
+                photoElement.className = 'relative group';
+                photoElement.innerHTML = `
+                    <div class="aspect-video bg-slate-700 rounded-lg overflow-hidden">
+                        <img src="assets/images/gallery/${photo.filename}" alt="${photo.title}" 
+                             class="w-full h-full object-cover" 
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjNjM2NmYxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZTwvdGV4dD48L3N2Zz4='">
+                    </div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                        <div class="text-center">
+                            <button class="px-3 py-1 bg-primary/80 text-white text-sm rounded mb-2 hover:bg-primary transition-colors" onclick="editPhoto(${photo.id})">
+                                Edit
+                            </button>
+                            <button class="px-3 py-1 bg-red-500/80 text-white text-sm rounded hover:bg-red-500 transition-colors" onclick="deletePhoto(${photo.id})">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <p class="text-sm font-medium text-slate-200">${photo.title}</p>
+                        <p class="text-xs text-slate-400">${photo.filename}</p>
+                    </div>
+                `;
+                galleryGrid.appendChild(photoElement);
+            });
+        }
+
+        function deletePhoto(id) {
+            if (confirm('Are you sure you want to delete this photo?')) {
+                DATA.gallery = DATA.gallery.filter(photo => photo.id !== id);
+                DATA.save();
+                loadGalleryContent();
+                showNotification('Photo deleted successfully', 'success');
+            }
+        }
+
+        // File Upload Handling
+        function setupFileUpload() {
+            const dropZone = document.getElementById('drop-zone');
+            const fileInput = document.getElementById('file-input');
+            const uploadPreview = document.getElementById('upload-preview');
+            const previewList = document.getElementById('preview-list');
+            const uploadBtn = document.getElementById('upload-btn');
+            
+            let selectedFiles = [];
+            
+            // Click to browse files
+            dropZone.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            // Drag and drop handling
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            });
+            
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('dragover');
+            });
+            
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+                handleFiles(e.dataTransfer.files);
+            });
+            
+            fileInput.addEventListener('change', (e) => {
+                handleFiles(e.target.files);
+            });
+            
+            function handleFiles(files) {
+                selectedFiles = Array.from(files).filter(file => {
+                    if (!file.type.startsWith('image/')) {
+                        showNotification(`${file.name} is not an image file`, 'error');
+                        return false;
+                    }
+                    if (file.size > 5 * 1024 * 1024) {
+                        showNotification(`${file.name} is too large (max 5MB)`, 'error');
+                        return false;
+                    }
+                    return true;
+                });
+                
+                if (selectedFiles.length > 0) {
+                    showPreview();
+                }
+            }
+            
+            function showPreview() {
+                previewList.innerHTML = '';
+                
+                selectedFiles.forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const previewItem = document.createElement('div');
+                        previewItem.className = 'flex items-center space-x-3 p-3 bg-slate-800/30 rounded-lg';
+                        previewItem.innerHTML = `
+                            <img src="${e.target.result}" alt="${file.name}" class="w-12 h-12 object-cover rounded">
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-slate-200 truncate">${file.name}</p>
+                                <p class="text-xs text-slate-400">${(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                            </div>
+                            <button class="text-red-400 hover:text-red-300" onclick="removeFile(${index})">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        `;
+                        previewList.appendChild(previewItem);
+                    };
+                    reader.readAsDataURL(file);
+                });
+                
+                uploadPreview.classList.remove('hidden');
+            }
+            
+            window.removeFile = function(index) {
+                selectedFiles.splice(index, 1);
+                if (selectedFiles.length === 0) {
+                    uploadPreview.classList.add('hidden');
+                } else {
+                    showPreview();
+                }
+            };
+            
+            uploadBtn.addEventListener('click', () => {
+                if (selectedFiles.length === 0) return;
+                
+                selectedFiles.forEach(file => {
+                    const newPhoto = {
+                        id: Date.now() + Math.random(),
+                        filename: file.name,
+                        title: file.name.split('.')[0].replace(/[_-]/g, ' '),
+                        description: 'Uploaded via admin dashboard'
+                    };
+                    DATA.gallery.push(newPhoto);
+                });
+                
+                DATA.save();
+                loadGalleryContent();
+                uploadPreview.classList.add('hidden');
+                selectedFiles = [];
+                fileInput.value = '';
+                
+                showNotification(`${selectedFiles.length || 1} photo(s) uploaded successfully`, 'success');
+            });
+        }
+
+        // Structure Management Functions
+        function loadStructureContent() {
+            const structureList = document.getElementById('structure-list');
+            structureList.innerHTML = '';
+            
+            DATA.structure.forEach(member => {
+                const memberElement = document.createElement('div');
+                memberElement.className = 'flex items-center justify-between p-4 glass-effect rounded-xl';
+                memberElement.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="text-2xl">${member.icon}</div>
+                        <div>
+                            <p class="font-medium text-slate-200">${member.position}</p>
+                            <p class="text-sm text-slate-400">${member.name}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="px-3 py-1 bg-primary/20 text-primary text-sm rounded hover:bg-primary/30 transition-colors" onclick="editMember(${member.id})">
+                            Edit
+                        </button>
+                        <button class="px-3 py-1 bg-red-500/20 text-red-400 text-sm rounded hover:bg-red-500/30 transition-colors" onclick="deleteMember(${member.id})">
+                            Delete
+                        </button>
+                    </div>
+                `;
+                structureList.appendChild(memberElement);
+            });
+        }
+
+        function editMember(id) {
+            const member = DATA.structure.find(m => m.id === id);
+            if (!member) return;
+            
+            document.getElementById('member-id').value = member.id;
+            document.getElementById('member-position').value = member.position;
+            document.getElementById('member-name').value = member.name;
+            document.getElementById('member-icon').value = member.icon;
+            
+            document.getElementById('member-submit-text').textContent = 'Update Member';
+            document.getElementById('cancel-edit').classList.remove('hidden');
+        }
+
+        function deleteMember(id) {
+            if (confirm('Are you sure you want to delete this member?')) {
+                DATA.structure = DATA.structure.filter(member => member.id !== id);
+                DATA.save();
+                loadStructureContent();
+                showNotification('Member deleted successfully', 'success');
+            }
+        }
+
+        function resetMemberForm() {
+            document.getElementById('member-form').reset();
+            document.getElementById('member-id').value = '';
+            document.getElementById('member-submit-text').textContent = 'Add Member';
+            document.getElementById('cancel-edit').classList.add('hidden');
+        }
+
+        // Confessions Management
+        function loadConfessionsContent() {
+            const confessionsList = document.getElementById('confessions-list');
+            confessionsList.innerHTML = '';
+            
+            if (DATA.confessions.length === 0) {
+                confessionsList.innerHTML = `
+                    <div class="text-center py-8">
+                        <div class="text-4xl mb-4">💭</div>
+                        <p class="text-slate-400">No confessions yet</p>
+                        <p class="text-slate-500 text-sm">Messages will appear here when submitted</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            DATA.confessions.slice().reverse().forEach((confession, index) => {
+                const confessionElement = document.createElement('div');
+                confessionElement.className = 'glass-effect rounded-xl p-4 border-l-4 border-primary';
+                confessionElement.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-start space-x-3 flex-1">
+                            <div class="text-2xl">💭</div>
+                            <div class="flex-1">
+                                <p class="text-slate-200 leading-relaxed">"${confession.message}"</p>
+                                <p class="text-slate-500 text-xs mt-2">
+                                    ${new Date(confession.timestamp || Date.now()).toLocaleString()}
+                                </p>
+                            </div>
+                        </div>
+                        <button class="px-3 py-1 bg-red-500/20 text-red-400 text-sm rounded hover:bg-red-500/30 transition-colors ml-4" onclick="deleteConfession(${confession.id || index})">
+                            Delete
+                        </button>
+                    </div>
+                `;
+                confessionsList.appendChild(confessionElement);
+            });
+        }
+
+        function deleteConfession(id) {
+            if (confirm('Are you sure you want to delete this confession?')) {
+                if (typeof id === 'number' && DATA.confessions[id]) {
+                    DATA.confessions.splice(id, 1);
+                } else {
+                    DATA.confessions = DATA.confessions.filter(c => c.id !== id);
+                }
+                DATA.save();
+                loadConfessionsContent();
+                showNotification('Confession deleted successfully', 'success');
+            }
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check authentication
+            if (AUTH.checkAuth()) {
+                document.getElementById('login-modal').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+                document.getElementById('current-user').textContent = AUTH.username;
+                updateOverviewStats();
+                setupFileUpload();
+            }
+            
+            // Login form
+            document.getElementById('login-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                if (AUTH.login(username, password)) {
+                    document.getElementById('login-modal').classList.add('hidden');
+                    document.getElementById('dashboard').classList.remove('hidden');
+                    document.getElementById('current-user').textContent = username;
+                    setupFileUpload();
+                    showNotification('Login successful!', 'success');
+                } else {
+                    showNotification('Invalid credentials', 'error');
+                }
+            });
+            
+            // Logout button
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                if (confirm('Are you sure you want to logout?')) {
+                    AUTH.logout();
+                }
+            });
+            
+            // Tab navigation
+            document.querySelectorAll('.tab-button, .quick-action').forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabName = button.getAttribute('data-tab');
+                    switchTab(tabName);
+                });
+            });
+            
+            // Member form
+            document.getElementById('member-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const id = document.getElementById('member-id').value;
+                const position = document.getElementById('member-position').value;
+                const name = document.getElementById('member-name').value;
+                const icon = document.getElementById('member-icon').value || '👤';
+                
+                if (!position || !name) {
+                    showNotification('Please fill in all required fields', 'error');
+                    return;
+                }
+                
+                if (id) {
+                    // Update existing member
+                    const memberIndex = DATA.structure.findIndex(m => m.id == id);
+                    if (memberIndex !== -1) {
+                        DATA.structure[memberIndex] = { id: parseInt(id), position, name, icon };
+                        showNotification('Member updated successfully', 'success');
+                    }
+                } else {
+                    // Add new member
+                    const newMember = {
+                        id: Date.now(),
+                        position,
+                        name,
+                        icon
+                    };
+                    DATA.structure.push(newMember);
+                    showNotification('Member added successfully', 'success');
+                }
+                
+                DATA.save();
+                loadStructureContent();
+                resetMemberForm();
+            });
+            
+            // Cancel edit button
+            document.getElementById('cancel-edit').addEventListener('click', resetMemberForm);
+            
+            // Clear all confessions
+            document.getElementById('clear-all-confessions').addEventListener('click', () => {
+                if (confirm('Are you sure you want to delete ALL confessions? This cannot be undone.')) {
+                    DATA.confessions = [];
+                    DATA.save();
+                    loadConfessionsContent();
+                    showNotification('All confessions cleared', 'success');
+                }
+            });
+            
+            // Refresh buttons
+            document.getElementById('refresh-gallery').addEventListener('click', loadGalleryContent);
+            document.getElementById('refresh-structure').addEventListener('click', loadStructureContent);
+            document.getElementById('refresh-confessions').addEventListener('click', loadConfessionsContent);
+            
+            // Settings forms
+            document.getElementById('website-settings-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                showNotification('Website settings saved successfully', 'success');
+            });
+            
+            document.getElementById('admin-settings-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const currentPassword = document.getElementById('current-password').value;
+                const newPassword = document.getElementById('new-password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                
+                if (newPassword !== confirmPassword) {
+                    showNotification('New passwords do not match', 'error');
+                    return;
+                }
+                
+                if (currentPassword !== 'pplgtwo2025') {
+                    showNotification('Current password is incorrect', 'error');
+                    return;
+                }
+                
+                showNotification('Password updated successfully', 'success');
+                document.getElementById('admin-settings-form').reset();
+            });
+            
+            // Backup and reset buttons
+            document.getElementById('backup-data').addEventListener('click', () => {
+                const data = {
+                    gallery: DATA.gallery,
+                    structure: DATA.structure,
+                    confessions: DATA.confessions,
+                    timestamp: new Date().toISOString()
+                };
+                
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `pplgtwo-backup-${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                
+                showNotification('Data backup downloaded', 'success');
+            });
+            document.getElementById('reset-system').addEventListener('click', () => {
+                if (confirm('Are you sure you want to reset ALL data? This cannot be undone.')) {
+                    DATA.gallery = [];
+                    DATA.structure = [];
+                    DATA.confessions = [];
+                    DATA.save();
+                    loadGalleryContent();
+                    loadStructureContent();
+                    loadConfessionsContent();
+                    showNotification('System reset successfully', 'success');
+                }
+            });
+            // Initial load
+            switchTab('overview');
+            loadGalleryContent();
+            loadStructureContent();
+            loadConfessionsContent();
+        });
+    </script>
+</body>
+</html>

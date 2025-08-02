@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "filename": "foto1.jpg",
+    "title": "Moment Kelas Terbaik",
+    "description": "Kebersamaan yang tak akan pernah terlupakan",
+    "featured": true,
+    "uploadDate": "2025-08-01T16:30:44.355Z"
+  },
+  {
+    "id": 2,
+    "filename": "foto2.jpg",
+    "title": "Aktivitas Belajar",
+    "description": "Semangat pembelajaran tinggi",
+    "featured": false,
+    "uploadDate": "2025-08-01T16:30:44.356Z"
+  }
+]
