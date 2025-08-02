@@ -2,26 +2,66 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
+const multer = require('multer');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3055;
 
 // Middleware
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
-// Melayani file statis dari folder 'public' (PERBAIKAN DI SINI)
+// Melayani file statis dari folder 'public'
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Setup multer untuk file upload
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const uploadPath = path.join(__dirname, 'public', 'assets', 'images', 'gallery');
+        // Pastikan folder exists
+        if (!fs.existsSync(uploadPath)) {
+            fs.mkdirSync(uploadPath, { recursive: true });
+        }
+        cb(null, uploadPath);
+    },
+    filename: function (req, file, cb) {
+        // Generate unique filename
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const ext = path.extname(file.originalname);
+        cb(null, 'photo-' + uniqueSuffix + ext);
+    }
+});
+
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 5 * 1024 * 1024, // 5MB limit
+    },
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype.startsWith('image/')) {
+            cb(null, true);
+        } else {
+            cb(new Error('Only image files are allowed!'), false);
+        }
+    }
+});
 
 // Pastikan folder data dan file JSON ada
 function ensureDataExists() {
     const dataDir = path.join(__dirname, 'data');
+    const galleryDir = path.join(__dirname, 'public', 'assets', 'images', 'gallery');
     
     // Buat folder data jika belum ada
     if (!fs.existsSync(dataDir)) {
         fs.mkdirSync(dataDir, { recursive: true });
         console.log('📁 Created data directory');
+    }
+    
+    // Buat folder gallery jika belum ada
+    if (!fs.existsSync(galleryDir)) {
+        fs.mkdirSync(galleryDir, { recursive: true });
+        console.log('🖼️ Created gallery directory');
     }
     
     // File paths
@@ -120,6 +160,47 @@ function writeJSONFile(filename, data) {
     }
 }
 
+// IMAGE UPLOAD ENDPOINT
+app.post('/api/upload', upload.array('images', 10), (req, res) => {
+    try {
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ error: 'No files uploaded' });
+        }
+
+        const gallery = readJSONFile('gallery.json');
+        const uploadedPhotos = [];
+
+        req.files.forEach(file => {
+            const newPhoto = {
+                id: Date.now() + Math.random(),
+                filename: file.filename,
+                originalName: file.originalname,
+                title: path.parse(file.originalname).name.replace(/[_-]/g, ' '),
+                description: 'Uploaded via admin dashboard',
+                featured: false,
+                uploadDate: new Date().toISOString(),
+                size: file.size,
+                mimetype: file.mimetype
+            };
+            
+            gallery.push(newPhoto);
+            uploadedPhotos.push(newPhoto);
+        });
+
+        if (writeJSONFile('gallery.json', gallery)) {
+            res.status(201).json({
+                message: `${uploadedPhotos.length} photo(s) uploaded successfully`,
+                data: uploadedPhotos
+            });
+        } else {
+            res.status(500).json({ error: 'Failed to save photo data' });
+        }
+    } catch (error) {
+        console.error('Upload error:', error);
+        res.status(500).json({ error: 'Failed to upload images' });
+    }
+});
+
 // CONFESSIONS API ENDPOINTS
 app.get('/api/confessions', (req, res) => {
     try {
@@ -213,10 +294,42 @@ app.post('/api/gallery', (req, res) => {
     }
 });
 
+app.put('/api/gallery/:id', (req, res) => {
+    try {
+        const photoId = parseFloat(req.params.id);
+        const gallery = readJSONFile('gallery.json');
+        
+        const photoIndex = gallery.findIndex(photo => photo.id === photoId);
+        if (photoIndex === -1) {
+            return res.status(404).json({ error: 'Photo not found' });
+        }
+        
+        gallery[photoIndex] = { ...gallery[photoIndex], ...req.body };
+        
+        if (writeJSONFile('gallery.json', gallery)) {
+            res.json(gallery[photoIndex]);
+        } else {
+            res.status(500).json({ error: 'Failed to update photo' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to update photo' });
+    }
+});
+
 app.delete('/api/gallery/:id', (req, res) => {
     try {
-        const photoId = parseInt(req.params.id);
+        const photoId = parseFloat(req.params.id);
         const gallery = readJSONFile('gallery.json');
+        
+        // Find the photo to get filename
+        const photo = gallery.find(photo => photo.id === photoId);
+        if (photo) {
+            // Delete file from filesystem
+            const filePath = path.join(__dirname, 'public', 'assets', 'images', 'gallery', photo.filename);
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+            }
+        }
         
         const filteredGallery = gallery.filter(photo => photo.id !== photoId);
         
@@ -347,18 +460,26 @@ app.get('/api/stats', (req, res) => {
     }
 });
 
-// Serve index.html untuk root route (PERBAIKAN DI SINI)
+// Serve index.html untuk root route
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Serve admin.html (PERBAIKAN DI SINI)
+// Serve admin.html
 app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
 // Error handling middleware
 app.use((error, req, res, next) => {
+    if (error instanceof multer.MulterError) {
+        if (error.code === 'LIMIT_FILE_SIZE') {
+            return res.status(400).json({ error: 'File too large (max 5MB)' });
+        }
+        if (error.code === 'LIMIT_FILE_COUNT') {
+            return res.status(400).json({ error: 'Too many files (max 10)' });
+        }
+    }
     console.error('Server Error:', error);
     res.status(500).json({ error: 'Internal server error' });
 });
@@ -381,7 +502,10 @@ app.listen(PORT, () => {
 ║  ⚙️  Admin: http://localhost:${PORT}/admin ║
 ║                                      ║
 ║  📁 Data folder created successfully ║
+║  🖼️  Gallery folder ready            ║
 ║  🚀 Server is ready!                ║
 ╚══════════════════════════════════════╝
     `);
 });
+
+module.exports = app;
