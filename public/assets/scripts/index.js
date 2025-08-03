@@ -1,3 +1,68 @@
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: "#6366f1",
+        secondary: "#8b5cf6",
+        accent: "#06b6d4",
+        dark: "#0f172a",
+        darker: "#020617",
+        darkest: "#030712",
+        light: "#f8fafc",
+        gray: "#64748b",
+        "card-bg": "rgba(255, 255, 255, 0.05)",
+        glass: "rgba(255, 255, 255, 0.08)",
+        success: "#10b981",
+        warning: "#f59e0b",
+        danger: "#ef4444",
+      },
+      fontFamily: {
+        inter: ["Inter", "sans-serif"],
+        space: ["Space Grotesk", "sans-serif"],
+      },
+      backgroundImage: {
+        "gradient-main":
+          "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
+        "gradient-card":
+          "linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
+        "gradient-hero":
+          "radial-gradient(circle at 30% 40%, rgba(99, 102, 241, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 60%, rgba(139, 92, 246, 0.15) 0%, transparent 50%)",
+      },
+      animation: {
+        float: "float 6s ease-in-out infinite",
+        "pulse-slow": "pulse 3s ease-in-out infinite",
+        "fade-in": "fadeIn 0.8s ease-in forwards",
+        "slide-up": "slideUp 0.6s ease-out forwards",
+        glow: "glow 2s ease-in-out infinite alternate",
+        "bounce-slow": "bounce 2s infinite",
+        shimmer: "shimmer 2s linear infinite",
+      },
+      keyframes: {
+        float: {
+          "0%, 100": { transform: "translateY(0px)" },
+          "50": { transform: "translateY(-20px)" },
+        },
+        fadeIn: {
+          "0": { opacity: "0", transform: "translateY(30px)" },
+          "100": { opacity: "1", transform: "translateY(0)" },
+        },
+        slideUp: {
+          "0": { transform: "translateY(50px)", opacity: "0" },
+          "100": { transform: "translateY(0)", opacity: "1" },
+        },
+        glow: {
+          "0": { boxShadow: "0 0 20px rgba(99, 102, 241, 0.5)" },
+          "100": { boxShadow: "0 0 30px rgba(139, 92, 246, 0.8)" },
+        },
+        shimmer: {
+          "0": { backgroundPosition: "-1000px 0" },
+          "100": { backgroundPosition: "1000px 0" },
+        },
+      },
+    },
+  },
+};
+
 // Initialize AOS
 AOS.init({
   duration: 800,

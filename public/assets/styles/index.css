@@ -29,7 +29,7 @@ body {
 
 .hover-glow:hover {
   box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
-  transform: translateY(-8px);
+  transform: translateY(-8px) rotateX(5deg) rotateY(-2deg);
 }
 
 .text-gradient {
@@ -138,6 +138,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 3rem;
+  perspective: 1000px;
 }
 
 .org-level {
@@ -188,8 +189,8 @@ body {
 }
 
 .org-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(99, 102, 241, 0.3);
+  transform: translateY(-10px) rotateX(8deg) rotateY(3deg);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
 }
 
 .org-card.leader {
@@ -335,4 +336,33 @@ body {
 @keyframes shimmer {
   0% { background-position: -1000px 0; }
   100% { background-position: 1000px 0; }
+}
+
+.floating-shapes span {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.12;
+  animation: float 8s ease-in-out infinite;
+}
+
+.floating-shapes span:nth-child(1) {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #6366f1, #06b6d4);
+  top: 70%;
+  left: 20%;
+  animation-delay: -6s;
+}
+
+.floating-shapes span:nth-child(2) {
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #8b5cf6, #ef4444);
+  top: 30%;
+  right: 25%;
+  animation-delay: -8s;
+}
+
+#confess-list {
+  perspective: 1000px;
 }
