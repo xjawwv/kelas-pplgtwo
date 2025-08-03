@@ -1,29 +1,68 @@
 [
   {
-    "id": 1,
-    "filename": "foto1.jpg",
-    "title": "Moment Kelas Terbaik",
-    "description": "Kebersamaan yang tak akan pernah terlupakan",
+    "id": 1754136049898.5562,
+    "filename": "photo-1754136049888-66304113.jpg",
+    "originalName": "SnapInsta.to_461530826_1017241856814633_4780725257930210014_n.jpg",
+    "title": "Renang",
+    "description": "",
+    "featured": false,
+    "uploadDate": "2025-08-02T12:00:49.898Z",
+    "size": 126150,
+    "mimetype": "image/jpeg"
+  },
+  {
+    "id": 1754136049898.26,
+    "filename": "photo-1754136049890-291005386.jpg",
+    "originalName": "SnapInsta.to_461594151_536613475516933_4994797826099082166_n.jpg",
+    "title": "Renang",
+    "description": "",
+    "featured": false,
+    "uploadDate": "2025-08-02T12:00:49.898Z",
+    "size": 232738,
+    "mimetype": "image/jpeg"
+  },
+  {
+    "id": 1754136049898.821,
+    "filename": "photo-1754136049893-865782085.jpg",
+    "originalName": "SnapInsta.to_468234121_1975035359628920_4833197243459282482_n.jpg",
+    "title": "Hari Guru",
+    "description": "",
     "featured": true,
-    "uploadDate": "2025-08-01T16:30:44.355Z"
+    "uploadDate": "2025-08-02T12:00:49.898Z",
+    "size": 168471,
+    "mimetype": "image/jpeg"
   },
   {
-    "id": 2,
-    "filename": "foto2.jpg",
-    "title": "Aktivitas Belajar",
-    "description": "Semangat pembelajaran tinggi",
+    "id": 1754136049898.1392,
+    "filename": "photo-1754136049894-15047977.jpg",
+    "originalName": "SnapInsta.to_475920751_17874217257266510_5082248185356997618_n.jpg",
+    "title": "lupa",
+    "description": "",
     "featured": false,
-    "uploadDate": "2025-08-01T16:30:44.356Z"
+    "uploadDate": "2025-08-02T12:00:49.898Z",
+    "size": 284616,
+    "mimetype": "image/jpeg"
   },
   {
-    "id": 1754107931527.672,
-    "filename": "photo-1754107931524-911697834.jpg",
-    "originalName": "download.jpg",
-    "title": "Test",
-    "description": "Anjay COK",
+    "id": 1754136049898.019,
+    "filename": "photo-1754136049896-31984429.jpg",
+    "originalName": "SnapInsta.to_460896693_1659024311613409_2217074248211651534_n.jpg",
+    "title": "lupa",
+    "description": "",
     "featured": false,
-    "uploadDate": "2025-08-02T04:12:11.528Z",
-    "size": 7969,
+    "uploadDate": "2025-08-02T12:00:49.898Z",
+    "size": 150365,
+    "mimetype": "image/jpeg"
+  },
+  {
+    "id": 1754136788340.008,
+    "filename": "photo-1754136788338-680140082.jpeg",
+    "originalName": "WhatsApp Image 2025-08-02 at 19.09.09.jpeg",
+    "title": "renang",
+    "description": "",
+    "featured": false,
+    "uploadDate": "2025-08-02T12:13:08.341Z",
+    "size": 254508,
     "mimetype": "image/jpeg"
   }
 ]

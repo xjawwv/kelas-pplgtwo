@@ -16,8 +16,11 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
     <script>
       tailwind.config = {
         theme: {
@@ -47,7 +50,7 @@
               "gradient-card":
                 "linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
               "gradient-hero":
-                "radial-gradient(circle at 30% 40%, rgba(99, 102, 241, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 60%, rgba(139, 92, 246, 0.3) 0%, transparent 50%)",
+                "radial-gradient(circle at 30% 40%, rgba(99, 102, 241, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 60%, rgba(139, 92, 246, 0.15) 0%, transparent 50%)",
             },
             animation: {
               float: "float 6s ease-in-out infinite",
@@ -60,24 +63,24 @@
             },
             keyframes: {
               float: {
-                "0%, 100%": { transform: "translateY(0px)" },
-                "50%": { transform: "translateY(-20px)" },
+                "0%, 100": { transform: "translateY(0px)" },
+                "50": { transform: "translateY(-20px)" },
               },
               fadeIn: {
-                "0%": { opacity: "0", transform: "translateY(30px)" },
-                "100%": { opacity: "1", transform: "translateY(0)" },
+                "0": { opacity: "0", transform: "translateY(30px)" },
+                "100": { opacity: "1", transform: "translateY(0)" },
               },
               slideUp: {
-                "0%": { transform: "translateY(50px)", opacity: "0" },
-                "100%": { transform: "translateY(0)", opacity: "1" },
+                "0": { transform: "translateY(50px)", opacity: "0" },
+                "100": { transform: "translateY(0)", opacity: "1" },
               },
               glow: {
-                "0%": { boxShadow: "0 0 20px rgba(99, 102, 241, 0.5)" },
-                "100%": { boxShadow: "0 0 30px rgba(139, 92, 246, 0.8)" },
+                "0": { boxShadow: "0 0 20px rgba(99, 102, 241, 0.5)" },
+                "100": { boxShadow: "0 0 30px rgba(139, 92, 246, 0.8)" },
               },
               shimmer: {
-                "0%": { backgroundPosition: "-1000px 0" },
-                "100%": { backgroundPosition: "1000px 0" },
+                "0": { backgroundPosition: "-1000px 0" },
+                "100": { backgroundPosition: "1000px 0" },
               },
             },
           },
@@ -94,6 +97,15 @@
           #334155 100%
         );
         background-attachment: fixed;
+        color: #f8fafc;
+      }
+
+      #home .absolute.inset-0 {
+        background:
+          linear-gradient(to bottom, rgba(15, 23, 42, 0.85) 0%, rgba(2, 6, 17, 0.95) 100%),
+          url('assets/images/background.jpeg');
+        background-size: cover;
+        background-position: center;
       }
 
       .glass-effect {
@@ -161,7 +173,6 @@
         padding: 120px 0;
       }
 
-      /* Admin Button */
       .admin-btn {
         position: fixed;
         bottom: 30px;
@@ -184,7 +195,6 @@
         box-shadow: 0 15px 35px rgba(99, 102, 241, 0.7);
       }
 
-      /* Custom Scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
       }
@@ -198,7 +208,6 @@
         border-radius: 4px;
       }
 
-      /* Loading states */
       .skeleton {
         background: linear-gradient(
           90deg,
@@ -211,7 +220,6 @@
         border-radius: 1rem;
       }
 
-      /* Structure Organization Styles */
       .org-chart {
         display: flex;
         flex-direction: column;
@@ -237,6 +245,33 @@
         min-width: 200px;
         transition: all 0.3s ease;
         position: relative;
+      }
+
+      /* Responsiveness for Structure Section */
+      @media (max-width: 768px) {
+        .org-chart {
+          gap: 2rem;
+        }
+
+        .org-level {
+          flex-direction: column; /* Stacking cards vertically on mobile */
+          gap: 1.5rem; /* Reduced gap for mobile */
+          width: 100%;
+        }
+
+        .org-card {
+          min-width: 100%; /* Full width cards on mobile */
+          padding: 1.25rem;
+          margin-bottom: 0;
+        }
+
+        .org-card .text-4xl {
+          font-size: 2.5rem;
+        }
+
+        .org-card h3 {
+          font-size: 1.25rem;
+        }
       }
 
       .org-card:hover {
@@ -280,76 +315,76 @@
         border: 1px solid rgba(99, 102, 241, 0.2);
       }
 
-      /* Gallery Grid Styles */
-      .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 2rem;
-        grid-auto-rows: 300px;
-      }
-
-      .gallery-item {
-        position: relative;
+      /* Gaya Swiper yang Diperbarui */
+      .gallery-swiper {
+        width: 100%;
+        height: 550px; /* Tinggi default untuk desktop */
+        margin: 0 auto;
         overflow: hidden;
-        border-radius: 1rem;
-        background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        transition: all 0.5s ease;
       }
 
-      .gallery-item:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
+      .gallery-swiper .swiper-slide {
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 2.5rem; /* Dibuat lebih oval/bulat */
+        box-shadow: none;
+        width: 70%; /* Lebar default */
+        opacity: 0.5;
+        transform: scale(0.8);
+        transition: all 0.3s ease;
       }
 
-      .gallery-item.featured {
-        grid-column: span 2;
-        grid-row: span 2;
+      .gallery-swiper .swiper-slide-active {
+        opacity: 1;
+        transform: scale(1);
+        z-index: 10;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
       }
 
-      .gallery-item img {
+      .gallery-swiper .swiper-slide-next,
+      .gallery-swiper .swiper-slide-prev {
+        opacity: 0.8;
+        transform: scale(0.9);
+      }
+
+      .gallery-swiper .swiper-slide figure {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .gallery-swiper .swiper-slide img {
+        display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.7s ease;
+        border-radius: 2.5rem; /* Dibuat lebih oval/bulat agar serasi */
+        margin: 0 auto;
+        aspect-ratio: 16 / 9; /* Rasio aspek default untuk desktop */
       }
 
-      .gallery-item:hover img {
-        transform: scale(1.1);
-      }
-
-      .gallery-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          to top,
-          rgba(0, 0, 0, 0.8) 0%,
-          rgba(0, 0, 0, 0.4) 50%,
-          transparent 100%
-        );
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        display: flex;
-        align-items: flex-end;
-        padding: 1.5rem;
-      }
-
-      .gallery-item:hover .gallery-overlay {
-        opacity: 1;
-      }
-
+      /* Penyesuaian untuk Tampilan Mobile */
       @media (max-width: 768px) {
-        .gallery-item.featured {
-          grid-column: span 1;
-          grid-row: span 1;
+        .gallery-swiper {
+          height: 480px; /* Tinggi disesuaikan untuk mobile */
         }
+        .gallery-swiper .swiper-slide {
+          width: 65%; /* Lebar disesuaikan agar lebih mirip dengan foto */
+        }
+        .gallery-swiper .swiper-slide img {
+            aspect-ratio: 3 / 4; /* Rasio aspek portrait untuk mobile */
+        }
+      }
 
-        .gallery-grid {
-          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-          gap: 1rem;
-          grid-auto-rows: 250px;
-        }
+      .gallery-swiper .swiper-pagination-bullet {
+        background: rgba(255, 255, 255, 0.5);
+      }
+      .gallery-swiper .swiper-pagination-bullet-active {
+        background: #6366f1;
       }
 
       .custom-scrollbar::-webkit-scrollbar {
@@ -369,7 +404,6 @@
     </style>
   </head>
   <body class="text-slate-100 overflow-x-hidden">
-    <!-- Navigation -->
     <header
       class="fixed top-0 left-0 w-full z-50 navbar-blur transition-all duration-300"
     >
@@ -453,7 +487,6 @@
           </button>
         </div>
 
-        <!-- Mobile Menu -->
         <div
           id="mobile-menu"
           class="hidden md:hidden mt-4 glass-effect rounded-xl p-4 animate-fade-in"
@@ -492,8 +525,7 @@
       </div>
     </header>
 
-    <main>
-      <!-- Hero Section -->
+    <main class="overflow-x-hidden">
       <section
         id="home"
         class="min-h-screen flex items-center justify-center relative overflow-hidden"
@@ -556,11 +588,10 @@
                 href="#structure"
                 class="px-8 py-4 glass-effect rounded-full font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20"
               >
-                Meet The Team
+                Structure
               </a>
             </div>
 
-            <!-- Stats Counter -->
             <div
               class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto"
             >
@@ -569,7 +600,7 @@
                   class="text-3xl md:text-4xl font-bold text-primary mb-2"
                   id="stat-students"
                 >
-                  40+
+                  37
                 </div>
                 <div class="text-sm text-slate-400 uppercase tracking-wide">
                   Students
@@ -580,7 +611,7 @@
                   class="text-3xl md:text-4xl font-bold text-secondary mb-2"
                   id="stat-projects"
                 >
-                  15+
+                  1
                 </div>
                 <div class="text-sm text-slate-400 uppercase tracking-wide">
                   Projects
@@ -609,7 +640,6 @@
           </div>
         </div>
 
-        <!-- Scroll Indicator -->
         <div
           class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-slow"
         >
@@ -624,9 +654,9 @@
         </div>
       </section>
 
-      <!-- Gallery Section -->
       <section id="gallery" class="section-spacing relative">
         <div class="container mx-auto px-6">
+          <!-- Judul dan deskripsi galeri dikembalikan -->
           <div class="text-center mb-20">
             <h2
               class="text-4xl md:text-6xl font-space font-bold mb-6 text-gradient"
@@ -634,46 +664,30 @@
               Class Gallery
             </h2>
             <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-8">
-              Menangkap momen-momen berharga perjalanan kelas kami dalam setiap
-              frame
+              Ini foto kelas kita, kelas kalian mana? 😏
             </p>
             <div
               class="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"
             ></div>
           </div>
 
-          <!-- Loading State -->
           <div id="gallery-loading" class="gallery-grid" data-aos="fade-up">
-            <div class="skeleton"></div>
-            <div class="skeleton"></div>
-            <div class="skeleton"></div>
-            <div class="skeleton"></div>
-            <div class="skeleton"></div>
-            <div class="skeleton"></div>
+            <div class="skeleton h-96"></div>
+            <div class="skeleton h-96"></div>
+            <div class="skeleton h-96"></div>
           </div>
 
-          <!-- Gallery Content -->
-          <div
-            id="gallery-content"
-            class="gallery-grid hidden"
-            data-aos="fade-up"
-          >
-            <!-- Gallery items will be dynamically loaded here -->
-          </div>
-
-          <!-- Gallery Controls -->
-          <div class="text-center mt-12 hidden" id="gallery-controls">
-            <button
-              id="load-more-gallery"
-              class="px-8 py-3 glass-effect rounded-full font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20"
-            >
-              Load More Photos
-            </button>
+          <div id="gallery-content" class="hidden" data-aos="fade-up">
+            <div class="swiper gallery-swiper">
+              <div class="swiper-wrapper">
+                <!-- Swiper slides will be injected here by JavaScript -->
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Structure Section -->
       <section id="structure" class="section-spacing relative">
         <div class="container mx-auto px-6">
           <div class="text-center mb-20">
@@ -690,7 +704,6 @@
             ></div>
           </div>
 
-          <!-- Loading State -->
           <div
             id="structure-loading"
             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-6xl mx-auto"
@@ -706,18 +719,15 @@
             <div class="skeleton h-48"></div>
           </div>
 
-          <!-- Structure Content -->
           <div
             id="structure-content"
             class="org-chart max-w-6xl mx-auto hidden"
             data-aos="fade-up"
           >
-            <!-- Structure will be dynamically loaded here -->
-          </div>
+            </div>
         </div>
       </section>
 
-      <!-- Confess Section -->
       <section id="confess" class="section-spacing relative">
         <div class="container mx-auto px-6">
           <div class="text-center mb-20">
@@ -727,8 +737,7 @@
               Anonymous Confess
             </h2>
             <p class="text-xl text-slate-400 max-w-3xl mx-auto mb-8">
-              Ruang aman untuk berbagi perasaan dan pemikiran secara anonim
-              dengan komunitas kelas
+              Ceritakan perasaan mu kepada seseorang di kelas ini🤫
             </p>
             <div
               class="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"
@@ -737,7 +746,6 @@
 
           <div class="max-w-5xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-12">
-              <!-- Confession Form -->
               <div data-aos="fade-right">
                 <div
                   class="glass-effect rounded-2xl p-8 hover-glow sticky top-24"
@@ -832,14 +840,14 @@
                       </svg>
                       <div class="text-sm text-slate-300">
                         <p class="font-medium mb-2 text-primary">
-                          Community Guidelines:
+                          Pedoman Komunitas:
                         </p>
                         <ul class="text-slate-400 space-y-1">
-                          <li>• Keep messages positive and respectful</li>
-                          <li>• No personal attacks or offensive content</li>
-                          <li>• Your identity remains completely anonymous</li>
+                          <li>• Kirim pesan positif dan penuh rasa hormat</li>
+                          <li>• Jangan menyerang pribadi seseorang</li>
+                          <li>• Identitas anda anonim</li>
                           <li>
-                            • Help create a supportive environment for everyone
+                            • Ayo buat lingkungan yang aman
                           </li>
                         </ul>
                       </div>
@@ -848,7 +856,6 @@
                 </div>
               </div>
 
-              <!-- Confessions List -->
               <div data-aos="fade-left">
                 <div class="flex items-center justify-between mb-8">
                   <h3 class="text-2xl font-space font-bold">
@@ -878,7 +885,6 @@
                   id="confess-list"
                   class="space-y-6 max-h-[700px] overflow-y-auto pr-2 custom-scrollbar"
                 >
-                  <!-- Loading state -->
                   <div id="confess-loading" class="text-center py-12">
                     <div
                       class="animate-spin w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full mx-auto mb-4"
@@ -893,7 +899,6 @@
       </section>
     </main>
 
-    <!-- Footer -->
     <footer
       class="section-spacing border-t border-slate-800 bg-darker/50 backdrop-blur-lg"
     >
@@ -1010,7 +1015,6 @@
       </div>
     </footer>
 
-    <!-- Loading Modal -->
     <div
       id="loading-modal"
       class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center"
@@ -1023,23 +1027,23 @@
       </div>
     </div>
 
-    <!-- Notification Container -->
     <div
       id="notification-container"
       class="fixed top-4 right-4 z-50 space-y-2"
     ></div>
 
-    <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <script>
       // Initialize AOS
       AOS.init({
-        duration: 800, // Animation duration in milliseconds
-        once: true, // Whether animation should happen only once - while scrolling down
-        offset: 100, // Offset (in px) from the original trigger point
+        duration: 800,
+        once: true,
+        offset: 100,
       });
 
-      // API Helper Functions dengan Improved Error Handling
+      // API Helper Functions
       const API = {
         async checkHealth() {
           try {
@@ -1080,17 +1084,14 @@
           }
         },
 
-        // Gallery API
         async getGallery() {
           return this.request("/gallery");
         },
 
-        // Structure API
         async getStructure() {
           return this.request("/structure");
         },
 
-        // Confessions API
         async getConfessions() {
           return this.request("/confessions");
         },
@@ -1102,7 +1103,6 @@
           });
         },
 
-        // Stats API
         async getStats() {
           return this.request("/stats");
         },
@@ -1147,12 +1147,10 @@
 
         container.appendChild(notification);
 
-        // Animate in
         setTimeout(() => {
           notification.classList.remove("translate-x-full");
         }, 100);
 
-        // Auto remove
         setTimeout(() => {
           if (notification.parentNode) {
             notification.classList.add("translate-x-full");
@@ -1174,7 +1172,7 @@
         document.getElementById("loading-modal").classList.add("hidden");
       }
 
-      // Character counter untuk confession textarea
+      // Character counter
       const confessMessage = document.getElementById("confess-message");
       const charCount = document.getElementById("char-count");
 
@@ -1187,120 +1185,123 @@
         });
       }
 
-      // Load Gallery dengan API
+      // Load Gallery with API and Initialize Swiper
       async function loadGallery() {
         const galleryLoading = document.getElementById("gallery-loading");
         const galleryContent = document.getElementById("gallery-content");
-        const galleryControls = document.getElementById("gallery-controls");
 
         try {
-          // Show loading
           galleryLoading.style.display = "grid";
           galleryContent.style.display = "none";
-          galleryControls.style.display = "none";
 
           const gallery = await API.getGallery();
 
-          // Hide loading
           galleryLoading.style.display = "none";
-          galleryContent.style.display = "grid";
-          galleryContent.innerHTML = "";
+          galleryContent.style.display = "block";
 
           if (gallery.length === 0) {
             galleryContent.innerHTML = `
-              <div class="gallery-item" style="grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; min-height: 400px;">
-                <div class="text-center">
-                  <div class="text-6xl mb-6">📸</div>
-                  <h3 class="text-2xl font-semibold text-slate-300 mb-4">No Photos Yet</h3>
-                  <p class="text-slate-400 mb-6">Photos uploaded from admin dashboard will appear here</p>
-                  <div class="w-16 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
-                </div>
+              <div class="text-center p-16">
+                <div class="text-6xl mb-6">📸</div>
+                <h3 class="text-2xl font-semibold text-slate-300 mb-4">No Photos Yet</h3>
+                <p class="text-slate-400 mb-6">Kirim foto kelas Anda!</p>
+                <div class="w-16 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
               </div>
             `;
             document.getElementById("stat-gallery").textContent = "0";
             return;
           }
 
-          // Update stats
           document.getElementById("stat-gallery").textContent = gallery.length;
 
-          // Sort gallery: featured first, then by upload date
           const sortedGallery = [...gallery].sort((a, b) => {
             if (a.featured && !b.featured) return -1;
             if (!a.featured && b.featured) return 1;
             return new Date(b.uploadDate || 0) - new Date(a.uploadDate || 0);
           });
 
-          // Render gallery items
-          sortedGallery.forEach((photo, index) => {
-            const galleryItem = document.createElement("div");
-            galleryItem.className = `gallery-item ${
-              photo.featured ? "featured" : ""
-            } animate-fade-in`;
-            galleryItem.style.animationDelay = `${index * 0.1}s`;
-
-            galleryItem.innerHTML = `
-              <img src="/assets/images/gallery/${photo.filename}" 
-                   alt="${photo.title || "Gallery Image"}" 
-                   loading="lazy"
-                   onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjNjM2NmYxIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5HYWxsZXJ5IEltYWdlPC90ZXh0Pjwvc3ZnPg=='">
-              
-              <div class="gallery-overlay">
-                <div class="text-white">
-                  ${
-                    photo.featured
-                      ? '<span class="inline-block px-3 py-1 bg-yellow-500/80 text-yellow-900 rounded-full text-sm mb-3 font-semibold">Featured</span><br>'
-                      : ""
-                  }
-                  <h3 class="text-xl font-bold mb-2">${
-                    photo.title || "Untitled"
-                  }</h3>
-                  <p class="text-gray-200 text-sm">${
-                    photo.description || "No description"
-                  }</p>
-                </div>
+          const swiperSlidesHTML = sortedGallery
+            .map(
+              (photo) => `
+              <div class="swiper-slide">
+                <figure>
+                  <img src="/assets/images/gallery/${photo.filename}"
+                       alt="${photo.title || "Gallery Image"}"
+                       loading="lazy"
+                       onerror="this.onerror=null;this.src='https://placehold.co/600x800/ef4444/white?text=Error';">
+                </figure>
               </div>
-            `;
+            `
+            )
+            .join("");
 
-            galleryContent.appendChild(galleryItem);
-          });
+          galleryContent.innerHTML = `
+            <div class="swiper gallery-swiper">
+              <div class="swiper-wrapper">
+                ${swiperSlidesHTML}
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          `;
 
-          // Show "Load More" if there are many photos (optional feature)
-          if (gallery.length > 12) {
-            galleryControls.style.display = "block";
-          }
+          setTimeout(function () {
+            if (document.querySelector(".gallery-swiper")) {
+              const swiper = new Swiper(".gallery-swiper", {
+                effect: "coverflow",
+                grabCursor: true,
+                centeredSlides: true,
+                loop: true,
+                slidesPerView: "auto",
+                coverflowEffect: {
+                  rotate: 0,
+                  stretch: 0,
+                  depth: 100, // Ini memberikan efek kedalaman 3D
+                  modifier: 1,
+                  slideShadows: false, // Set ke true jika ingin bayangan
+                },
+                autoplay: {
+                  delay: 5000,
+                  disableOnInteraction: false,
+                },
+                pagination: {
+                  el: ".swiper-pagination",
+                  clickable: true,
+                },
+              });
+            } else {
+              console.error(
+                "Swiper container .gallery-swiper not found after loading gallery data."
+              );
+            }
+          }, 100);
         } catch (error) {
           console.error("Error loading gallery:", error);
           galleryLoading.style.display = "none";
-          galleryContent.style.display = "grid";
+          galleryContent.style.display = "block";
           galleryContent.innerHTML = `
-            <div class="gallery-item" style="grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; min-height: 400px;">
-              <div class="text-center">
-                <div class="text-6xl mb-6">❌</div>
-                <h3 class="text-xl font-semibold text-red-400 mb-4">Failed to Load Gallery</h3>
-                <p class="text-slate-400 mb-6">Please check your connection and try again</p>
-                <button onclick="loadGallery()" class="px-6 py-3 bg-primary hover:bg-primary/80 rounded-lg font-medium transition-colors">
-                  Try Again
-                </button>
-              </div>
+            <div class="text-center p-16">
+              <div class="text-6xl mb-6">❌</div>
+              <h3 class="text-xl font-semibold text-red-400 mb-4">Failed to Load Gallery</h3>
+              <p class="text-slate-400 mb-6">Please check your connection and try again</p>
+              <button onclick="loadGallery()" class="px-6 py-3 bg-primary hover:bg-primary/80 rounded-lg font-medium transition-colors">
+                Try Again
+              </button>
             </div>
           `;
         }
       }
 
-      // Load Structure dengan API
+      // Load Structure with API
       async function loadStructure() {
         const structureLoading = document.getElementById("structure-loading");
         const structureContent = document.getElementById("structure-content");
 
         try {
-          // Show loading
           structureLoading.style.display = "grid";
           structureContent.style.display = "none";
 
           const structure = await API.getStructure();
 
-          // Hide loading
           structureLoading.style.display = "none";
           structureContent.style.display = "flex";
           structureContent.innerHTML = "";
@@ -1316,7 +1317,6 @@
             return;
           }
 
-          // Group by levels
           const levels = {
             leader: structure.filter(
               (m) => m.level === "leader" || m.position === "Wali Kelas"
@@ -1341,7 +1341,6 @@
             ),
           };
 
-          // Render each level
           ["leader", "executive", "staff", "division"].forEach(
             (levelName, levelIndex) => {
               if (levels[levelName].length > 0) {
@@ -1390,7 +1389,6 @@
         }
       }
 
-      // Helper functions untuk structure styling
       function getColorClass(level) {
         const colors = {
           leader: "text-primary",
@@ -1421,14 +1419,13 @@
         return labels[level] || "Staff";
       }
 
-      // Load Confessions dengan API dan Retry Logic
+      // Load Confessions
       async function loadConfessions(retryCount = 0) {
         const confessList = document.getElementById("confess-list");
         const maxRetries = 3;
         const retryDelay = 1000;
 
         try {
-          // Show loading state
           if (retryCount === 0) {
             confessList.innerHTML =
               '<div id="confess-loading" class="text-center py-12"><div class="animate-spin w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full mx-auto mb-4"></div><p class="text-slate-400">Loading confessions...</p></div>';
@@ -1486,8 +1483,6 @@
           console.log("✅ Confessions loaded successfully");
         } catch (error) {
           console.error("Error loading confessions:", error);
-
-          // Retry logic
           if (retryCount < maxRetries) {
             console.log(
               `🔄 Retrying confession load (${retryCount + 1}/${maxRetries})...`
@@ -1498,7 +1493,6 @@
             return;
           }
 
-          // Show error state after max retries
           confessList.innerHTML = `
             <div class="text-center py-16 glass-effect rounded-xl border border-red-500/20">
               <div class="text-6xl mb-6">⚠️</div>
@@ -1548,7 +1542,6 @@
             return;
           }
 
-          // Show loading state
           const originalText = submitText.innerHTML;
           submitText.innerHTML = "Mengirim...";
           submitButton.disabled = true;
@@ -1568,7 +1561,6 @@
               "error"
             );
           } finally {
-            // Reset button
             submitText.innerHTML = originalText;
             submitButton.disabled = false;
             submitButton.classList.remove("opacity-50");
@@ -1576,12 +1568,10 @@
         });
       }
 
-      // Refresh confessions
       if (refreshButton) {
         refreshButton.addEventListener("click", loadConfessions);
       }
 
-      // Utility Functions
       function formatDate(timestamp) {
         if (!timestamp) return "Just now";
         try {
@@ -1599,7 +1589,6 @@
         }
       }
 
-      // Mobile Menu Handler
       const mobileMenuButton = document.getElementById("mobile-menu-button");
       const mobileMenu = document.getElementById("mobile-menu");
 
@@ -1624,7 +1613,6 @@
         });
       }
 
-      // Smooth Scrolling untuk Navigation
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
@@ -1639,7 +1627,6 @@
         });
       });
 
-      // Active Navigation Highlighting
       function updateActiveNavigation() {
         let current = "";
         const sections = document.querySelectorAll("section[id]");
@@ -1659,7 +1646,6 @@
         });
       }
 
-      // Debounce function untuk optimisasi performance
       function debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -1672,11 +1658,9 @@
         };
       }
 
-      // Scroll event handler dengan debounce
       const debouncedScrollHandler = debounce(() => {
         updateActiveNavigation();
 
-        // Update navbar background based on scroll position
         const navbar = document.querySelector("header");
         if (window.scrollY > 50) {
           navbar.classList.add("backdrop-blur-xl");
@@ -1689,7 +1673,6 @@
 
       window.addEventListener("scroll", debouncedScrollHandler);
 
-      // Intersection Observer untuk Animations (Fallback for AOS)
       const observeElements = document.querySelectorAll(
         ".animate-fade-in, .animate-slide-up"
       );
@@ -1717,20 +1700,14 @@
         observer.observe(el);
       });
 
-      // Keyboard shortcuts
       document.addEventListener("keydown", function (e) {
-        // Alt + A untuk buka admin dashboard
         if (e.altKey && e.key === "a") {
           e.preventDefault();
           window.open("/admin", "_blank");
         }
-
-        // Escape key untuk close notifications
         if (e.key === "Escape") {
           document.querySelectorAll(".notification").forEach((n) => n.remove());
         }
-
-        // Ctrl+Enter untuk submit confession form
         if (e.key === "Enter" && e.ctrlKey) {
           if (e.target.id === "confess-message") {
             e.preventDefault();
@@ -1739,7 +1716,6 @@
         }
       });
 
-      // Right-click context menu untuk admin access (hidden feature)
       document.addEventListener("contextmenu", function (e) {
         if (e.ctrlKey && e.shiftKey) {
           e.preventDefault();
@@ -1751,7 +1727,6 @@
         }
       });
 
-      // Auto-refresh confessions dengan improved logic
       let autoRefreshInterval;
       let consecutiveErrors = 0;
       const maxConsecutiveErrors = 3;
@@ -1802,7 +1777,6 @@
         consecutiveErrors = 0;
       }
 
-      // Handle visibility change untuk pause/resume auto-refresh
       document.addEventListener("visibilitychange", () => {
         if (document.hidden) {
           stopAutoRefresh();
@@ -1812,7 +1786,6 @@
         }
       });
 
-      // Load settings dari API (optional)
       async function loadSettings() {
         try {
           const response = await fetch("/api/settings");
@@ -1847,18 +1820,15 @@
         }
       }
 
-      // Initialize Everything saat DOM loaded
       document.addEventListener("DOMContentLoaded", async () => {
         console.log("🚀 Initializing PPLGTWO Website...");
 
-        // Add smooth loading animation
         document.body.style.opacity = "0";
         document.body.style.transition = "opacity 0.5s ease-in-out";
 
         try {
           showLoading();
 
-          // Check server health first
           const serverHealthy = await API.checkHealth();
           if (!serverHealthy) {
             console.warn(
@@ -1866,7 +1836,6 @@
             );
           }
 
-          // Load sections with individual error handling
           const results = await Promise.allSettled([
             loadSettings(),
             loadGallery(),
@@ -1874,7 +1843,6 @@
             updateStats(),
           ]);
 
-          // Check for any failures
           const failures = results.filter(
             (result) => result.status === "rejected"
           );
@@ -1886,19 +1854,16 @@
             );
           }
 
-          // Load confessions separately with delay
           setTimeout(() => {
             loadConfessions();
           }, 100);
 
           hideLoading();
 
-          // Fade in body
           setTimeout(() => {
             document.body.style.opacity = "1";
           }, 100);
 
-          // Start auto-refresh if not hidden
           if (!document.hidden) {
             startAutoRefresh();
           }
@@ -1914,37 +1879,31 @@
             10000
           );
 
-          // Still try to load confessions
           setTimeout(() => {
             loadConfessions();
           }, 2000);
 
-          // Still fade in body
           setTimeout(() => {
             document.body.style.opacity = "1";
           }, 100);
         }
       });
 
-      // Cleanup on page unload
       window.addEventListener("beforeunload", () => {
         stopAutoRefresh();
       });
 
-      // Global error handler
       window.addEventListener("error", (event) => {
         console.error("Global error:", event.error);
         showNotification("An unexpected error occurred", "error");
       });
 
-      // Handle unhandled promise rejections
       window.addEventListener("unhandledrejection", (event) => {
         console.error("Unhandled promise rejection:", event.reason);
         showNotification("A network error occurred", "error");
         event.preventDefault();
       });
 
-      // Console easter egg
       console.log(`
         ╔══════════════════════════════════════╗
         ║              PPLGTWO                 ║
@@ -1962,7 +1921,6 @@
         ╚══════════════════════════════════════╝
       `);
 
-      // Export functions untuk debugging (development only)
       if (
         window.location.hostname === "localhost" ||
         window.location.hostname === "127.0.0.1"
@@ -1983,7 +1941,6 @@
         );
       }
 
-      // Performance monitoring
       window.addEventListener("load", () => {
         if (window.performance && window.performance.timing) {
           const loadTime =
@@ -1993,7 +1950,6 @@
         }
       });
 
-      // Feature detection
       function checkFeatureSupport() {
         const features = {
           fetch: typeof fetch !== "undefined",
@@ -2019,10 +1975,8 @@
         return features;
       }
 
-      // Initialize feature detection
       checkFeatureSupport();
 
-      // PWA hint
       if ("serviceWorker" in navigator) {
         console.log("💡 This website could be enhanced with PWA features!");
       }

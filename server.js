@@ -105,7 +105,7 @@ function ensureDataExists() {
     // Initialize structure.json
     if (!fs.existsSync(files.structure)) {
         const defaultStructure = [
-            { id: 1, position: 'Wali Kelas', name: 'Bapak/Ibu Guru', icon: '👨‍🏫', level: 'leader' },
+            { id: 1, position: 'Wali Kelas', name: 'Bapak/Ibu Guru', icon: '👩‍🏫', level: 'leader' },
             { id: 2, position: 'Ketua Kelas', name: 'Nama Ketua', icon: '👑', level: 'executive' },
             { id: 3, position: 'Wakil Ketua', name: 'Nama Wakil Ketua', icon: '🤝', level: 'executive' },
             { id: 4, position: 'Sekretaris 1', name: 'Nama Sekretaris 1', icon: '📝', level: 'staff' },
@@ -466,7 +466,7 @@ app.get('/', (req, res) => {
 });
 
 // Serve admin.html
-app.get('/m123admin', (req, res) => {
+app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
